@@ -1,0 +1,8 @@
+{
+  "name": "fruit-machine",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:SilencerWeb/fruit-machine.git",
+  "author": "SilencerWeb <silencer.web@gmail.com>",
+  "license": "MIT"
+}
