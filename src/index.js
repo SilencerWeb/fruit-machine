@@ -1,3 +1,6 @@
+import 'normalize.css/normalize.css';
+import './assets/styles/main.css';
+
 const reels = [
   {
     name: 'wild',
