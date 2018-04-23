@@ -1,9 +1,5 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const Dashboard = require('webpack-dashboard');
-const DashboardPlugin = require('webpack-dashboard/plugin');
-
-const dashboard = new Dashboard();
 
 const production = process.env.NODE_ENV === 'production';
 
@@ -42,7 +38,6 @@ module.exports = () => {
           template: './static/index.html',
           hash: true,
         }),
-        new DashboardPlugin(dashboard.setData),
       ],
       devServer: {
         port: 3000,
