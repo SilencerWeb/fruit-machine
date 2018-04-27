@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "yarn webpack-dev-server",
-    "build": "export NODE_ENV=production; yarn webpack",
+    "build": "export NODE_ENV=production; rm -rf build && yarn webpack",
     "deploy": "yarn build && gh-pages -d build"
   },
   "dependencies": {
@@ -19,6 +19,7 @@
     "@babel/preset-env": "^7.0.0-beta.46",
     "babel-loader": "^8.0.0-beta",
     "css-loader": "^0.28.11",
+    "file-loader": "^1.1.11",
     "gh-pages": "^1.1.0",
     "html-webpack-plugin": "^3.2.0",
     "style-loader": "^0.21.0",

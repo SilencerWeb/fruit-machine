@@ -15,20 +15,31 @@ module.exports = () => {
       module: {
         rules: [
           {
-            test: /\.js$/,
-            exclude: /node_modules/,
-            use: {
-              loader: 'babel-loader',
-              options: {
-                presets: ['@babel/preset-env'],
+            oneOf: [
+              {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                use: {
+                  loader: 'babel-loader',
+                  options: {
+                    presets: ['@babel/preset-env'],
+                  },
+                },
               },
-            },
-          },
-          {
-            test: /\.css$/,
-            use: [
-              'style-loader',
-              'css-loader',
+              {
+                test: /\.css$/,
+                use: [
+                  'style-loader',
+                  'css-loader',
+                ],
+              },
+              {
+                exclude: [/\.js$/, /\.html$/, /\.json$/],
+                loader: require.resolve('file-loader'),
+                options: {
+                  name: 'media/[name].[hash:8].[ext]',
+                },
+              },
             ],
           },
         ],

@@ -8,12 +8,14 @@ import { reelsScore } from './constants';
 import 'normalize.css/normalize.css';
 import './assets/styles/main.css';
 
+
 const FruitMachine = function () {
   this.state = {
     reels: [],
     spin: [],
     score: null,
   };
+
 
   const handleSpinButtonClick = (e) => {
     e.preventDefault();
@@ -36,11 +38,13 @@ const FruitMachine = function () {
     this.updateUI();
   };
 
+
   this.spin = (reels) => {
     return reels.map(() => {
       return generateRandomNumber(1, reels.length);
     });
   };
+
 
   this.getSpinScore = (reels, spins) => {
     let score = 0;
@@ -78,6 +82,7 @@ const FruitMachine = function () {
 
     return score;
   };
+
 
   this.drawUI = (reelsAmount = 3) => {
     const state = this.state;
@@ -137,6 +142,7 @@ const FruitMachine = function () {
     score.textContent = `Your score: ${state.score}`;
   };
 
+
   this.start = () => {
     const state = this.state;
 
@@ -156,6 +162,7 @@ const FruitMachine = function () {
     this.drawUI();
   };
 };
+
 
 const fruitMachine = new FruitMachine();
 
