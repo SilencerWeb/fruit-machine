@@ -13,7 +13,10 @@ const FruitMachine = function () {
   this.state = {
     reels: [],
     spin: [],
-    score: null,
+    currentScore: 0,
+    previousScore: 0,
+    totalScore: 0,
+    spinAmount: 0,
   };
 
 
@@ -25,13 +28,19 @@ const FruitMachine = function () {
 
     const reels = getShuffledReelsList();
     const spin = this.spin(reels);
-    const score = this.getSpinScore(reels, spin);
+    const currentScore = this.getSpinScore(reels, spin);
+    const previousScore = state.currentScore;
+    const totalScore = state.totalScore + currentScore;
+    const spinAmount = state.spinAmount + 1;
 
 
     this.state = Object.assign(state, {
       reels: reels,
       spin: spin,
-      score: score,
+      currentScore: currentScore,
+      previousScore: previousScore,
+      totalScore: totalScore,
+      spinAmount: spinAmount,
     });
 
 
@@ -107,6 +116,30 @@ const FruitMachine = function () {
     }
 
 
+    const footer = document.createElement('div');
+    footer.classList.add('footer');
+
+    const footerSideInfo = document.createElement('div');
+    footerSideInfo.classList.add('side-info');
+
+    const footerSideButton = document.createElement('div');
+    footerSideButton.classList.add('side-button');
+
+
+    const currentScore = document.createElement('span');
+    currentScore.classList.add('current-score');
+    currentScore.textContent = 'Press \'Spin!\'';
+
+    const previousScore = document.createElement('span');
+    previousScore.classList.add('previous-score');
+
+    const totalScore = document.createElement('span');
+    totalScore.classList.add('total-score');
+
+    const spinAmount = document.createElement('span');
+    spinAmount.classList.add('spin-amount');
+
+
     const spinButton = document.createElement('button');
     spinButton.classList.add('spin-button');
     spinButton.textContent = 'Spin!';
@@ -114,14 +147,19 @@ const FruitMachine = function () {
     spinButton.addEventListener('click', handleSpinButtonClick);
 
 
-    const score = document.createElement('span');
-    score.classList.add('score');
-    score.textContent = 'Press \'Spin!\'';
+    footerSideInfo.appendChild(currentScore);
+    footerSideInfo.appendChild(previousScore);
+    footerSideInfo.appendChild(totalScore);
+    footerSideInfo.appendChild(spinAmount);
+
+    footerSideButton.appendChild(spinButton);
+
+    footer.appendChild(footerSideInfo);
+    footer.appendChild(footerSideButton);
 
 
     fruitMachine.appendChild(reelsWrapper);
-    fruitMachine.appendChild(score);
-    fruitMachine.appendChild(spinButton);
+    fruitMachine.appendChild(footer);
   };
 
   this.updateUI = () => {
@@ -130,8 +168,11 @@ const FruitMachine = function () {
 
     const fruitMachine = document.querySelector('.fruit-machine');
     const reels = fruitMachine.querySelectorAll('.reel');
+    const currentScore = fruitMachine.querySelector('.current-score');
+    const previousScore = fruitMachine.querySelector('.previous-score');
+    const totalScore = fruitMachine.querySelector('.total-score');
+    const spinAmount = fruitMachine.querySelector('.spin-amount');
     const spinButton = fruitMachine.querySelector('.spin-button');
-    const score = fruitMachine.querySelector('.score');
 
 
     reels.forEach((reel, i) => {
@@ -139,7 +180,10 @@ const FruitMachine = function () {
     });
 
 
-    score.textContent = `Your score: ${state.score}`;
+    currentScore.textContent = `Your current score: ${state.currentScore}`;
+    previousScore.textContent = `Your previous score: ${state.previousScore}`;
+    totalScore.textContent = `Your total score: ${state.totalScore}`;
+    spinAmount.textContent = `Your spin count: ${state.spinAmount}`;
   };
 
 
@@ -149,13 +193,11 @@ const FruitMachine = function () {
 
     const reels = getShuffledReelsList();
     const spin = this.spin(reels);
-    const score = this.getSpinScore(reels, spin);
 
 
     this.state = Object.assign(state, {
       reels: reels,
       spin: spin,
-      score: score,
     });
 
 

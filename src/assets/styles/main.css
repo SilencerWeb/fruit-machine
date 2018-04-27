@@ -1,0 +1,63 @@
+body {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.fruit-machine {
+  max-width: 400px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.reels-wrapper {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.reel {
+  flex: 0 0 33.333%;
+  font-size: 2rem;
+  text-align: center;
+  text-transform: uppercase;
+  margin-right: 10px;
+}
+
+.reel:last-child {
+  margin-right: 0;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.footer .side-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer .side-info span {
+  margin-bottom: 5px;
+}
+
+.footer .side-info span:last-child {
+  margin-bottom: 0;
+}
+
+.spin-button {
+  display: inline-block;
+  vertical-align: top;
+  background-color: transparent;
+  border-radius: 5px;
+  padding: 5px 10px;
+  outline: none;
+  cursor: pointer;
+}
