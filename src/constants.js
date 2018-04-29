@@ -1,4 +1,4 @@
-export const reelsScore = {
+export const REELS_SCORES = {
   wild: [100, 10, 100],
   star: [90, 9, 18],
   bell: [80, 8, 16],

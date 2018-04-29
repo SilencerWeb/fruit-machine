@@ -1,6 +1,6 @@
 import lodashShuffle from 'lodash.shuffle';
 
-import { reelsScore } from './constants';
+import { REELS_SCORES } from './constants';
 
 export const generateRandomNumber = (min = 0, max = 9) => {
   min = Math.ceil(min);
@@ -10,7 +10,7 @@ export const generateRandomNumber = (min = 0, max = 9) => {
 };
 
 export const getShuffledReel = () => {
-  const reelsNames = Object.keys(reelsScore);
+  const reelsNames = Object.keys(REELS_SCORES);
 
   return lodashShuffle(reelsNames);
 };

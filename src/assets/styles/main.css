@@ -2,10 +2,21 @@
   --main-color: #323232
 }
 
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
 body {
   position: relative;
   font-family: 'Montserrat', sans-serif;
   color: var(--main-color);
+}
+
+h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
 }
 
 p {
@@ -84,7 +95,7 @@ p span.green {
 
 .reel {
   flex: 0 0 33.333%;
-  font-size: 2rem;
+  font-size: 2.5rem;
   text-align: center;
   text-transform: uppercase;
 }
@@ -117,6 +128,39 @@ p span.green {
 
 .message:last-child {
   margin-bottom: 0;
+}
+
+.prize-table {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  text-align: center;
+  padding: 15px 12.5px;
+}
+
+.prize-table table {
+  min-width: 400px;
+  min-height: 350px;
+  margin-bottom: 20px;
+  transition: 0.3s;
+}
+
+.prize-table table.hidden {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.prize-table caption {
+  margin-bottom: 20px;
+}
+
+.prize-table caption h2 {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.prize-table td::first-letter {
+  text-transform: uppercase;
 }
 
 .info {

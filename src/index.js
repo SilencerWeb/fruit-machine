@@ -5,7 +5,7 @@ import {
   getShuffledReelsList,
 } from './helpers';
 
-import { reelsScore } from './constants';
+import { REELS_SCORES } from './constants';
 
 import 'normalize.css/normalize.css';
 import './assets/styles/main.css';
@@ -109,6 +109,23 @@ const FruitMachine = function () {
     this.updateUI();
   };
 
+  const togglePrizeTable = () => {
+    const togglePrizeTableButton = document.querySelector('.toggle-prize-table');
+
+    const prizeTable = document.querySelector('.prize-table table');
+
+
+    if (prizeTable.classList.contains('hidden')) {
+      togglePrizeTableButton.innerHTML = 'Hide prize table';
+
+      prizeTable.classList.remove('hidden');
+    } else {
+      togglePrizeTableButton.innerHTML = 'Show prize table';
+
+      prizeTable.classList.add('hidden');
+    }
+  };
+
 
   const handleSpinButtonClick = (e) => {
     e.preventDefault();
@@ -139,16 +156,16 @@ const FruitMachine = function () {
     const reels = getShuffledReelsList();
     const spin = this.spin(reels);
     const score = this.getSpinScore(reels, spin);
-    const price = score * 10;
+    const prize = score * 10;
 
 
     // .game
     let message = '';
 
     if (score > 0) {
-      message = price > 500 ?
-        `Woooooow! Congratulations! You won a lot - <span class="green">${price}$</span>!` :
-        `Woohoo! Congratulations! You won <span class="green">${price}$</span> :)`;
+      message = prize > 500 ?
+        `Woooooow! Congratulations! You won a lot - <span class="green">${prize}$</span>!` :
+        `Woohoo! Congratulations! You won <span class="green">${prize}$</span> :)`;
     } else {
       message = `Damn, You lost :( <br> Try again, I believe You will win next time :)`;
     }
@@ -160,7 +177,7 @@ const FruitMachine = function () {
     const totalScore = state.score.total + currentScore;
     const bestScore = state.score.best > currentScore ? state.score.best : currentScore;
 
-    const money = state.money - SPIN_COST + price;
+    const money = state.money - SPIN_COST + prize;
 
     const credit = state.credit;
 
@@ -200,6 +217,12 @@ const FruitMachine = function () {
     repayCredit();
   };
 
+  const handleTogglePrizeTableClick = (e) => {
+    e.preventDefault();
+
+    togglePrizeTable();
+  };
+
 
   this.spin = (reels) => {
     return reels.map(() => {
@@ -225,7 +248,7 @@ const FruitMachine = function () {
     if (matchReels.length === 1) {
       const reel = matchReels[0];
 
-      score = reelsScore[reel][0];
+      score = REELS_SCORES[reel][0];
     } else if (matchReels.length === 2) {
       const firstReel = matchReels[0];
       const secondReel = matchReels[1];
@@ -234,9 +257,9 @@ const FruitMachine = function () {
       const loseReel = spinResultReels[firstReel] < spinResultReels[secondReel] ? firstReel : secondReel;
 
       if (loseReel === 'wild') {
-        score = reelsScore[winReel][2];
+        score = REELS_SCORES[winReel][2];
       } else {
-        score = reelsScore[winReel][1];
+        score = REELS_SCORES[winReel][1];
       }
     }
 
@@ -293,6 +316,35 @@ const FruitMachine = function () {
     spinCount.innerHTML = `Your spin count: <span>${state.spin.count}</span>`;
   };
 
+  this.generatePrizeTable = () => {
+    const prizeTable = document.querySelector('.prize-table table');
+
+    const prizeTbody = document.createElement('tbody');
+    prizeTable.appendChild(prizeTbody);
+
+
+    const reelsItems = Object.keys(REELS_SCORES);
+
+    reelsItems.forEach((reelItem) => {
+      const tr = document.createElement('tr');
+
+      const td = document.createElement('td');
+      td.innerHTML = reelItem;
+
+      tr.appendChild(td);
+
+
+      REELS_SCORES[reelItem].forEach((reelScore) => {
+        const td = document.createElement('td');
+        td.innerHTML = reelScore;
+
+        tr.appendChild(td);
+      });
+
+      prizeTbody.appendChild(tr);
+    });
+  };
+
 
   this.start = () => {
     const reels = getShuffledReelsList();
@@ -318,6 +370,11 @@ const FruitMachine = function () {
     const repayCredit = fruitMachine.querySelector('.repay-credit');
     repayCredit.addEventListener('click', handleRepayCreditClick);
 
+    const togglePrizeTable = fruitMachine.querySelector('.toggle-prize-table');
+    togglePrizeTable.addEventListener('click', handleTogglePrizeTableClick);
+
+
+    this.generatePrizeTable();
 
     this.updateUI();
   };
