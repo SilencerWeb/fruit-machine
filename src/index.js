@@ -22,6 +22,7 @@ const FruitMachine = function () {
     reels: [],
     spin: {
       reels: [],
+      winningReels: [],
       count: 0,
     },
     score: {
@@ -109,6 +110,36 @@ const FruitMachine = function () {
     this.updateUI();
   };
 
+  
+  const generatePrizeTable = () => {
+    const prizeTable = document.querySelector('.prize-table table');
+
+    const prizeTbody = document.createElement('tbody');
+    prizeTable.appendChild(prizeTbody);
+
+
+    const reelsItems = Object.keys(REELS_SCORES);
+
+    reelsItems.forEach((reelItem) => {
+      const tr = document.createElement('tr');
+
+      const td = document.createElement('td');
+      td.innerHTML = reelItem;
+
+      tr.appendChild(td);
+
+
+      REELS_SCORES[reelItem].forEach((reelScore) => {
+        const td = document.createElement('td');
+        td.innerHTML = reelScore * 10;
+
+        tr.appendChild(td);
+      });
+
+      prizeTbody.appendChild(tr);
+    });
+  };
+
   const togglePrizeTable = () => {
     const togglePrizeTableButton = document.querySelector('.toggle-prize-table');
 
@@ -124,6 +155,26 @@ const FruitMachine = function () {
 
       prizeTable.classList.add('hidden');
     }
+  };
+  
+  
+  const highlightWinningReels = () => {
+    const state = this.state;
+
+
+    const winningReels = state.spin.winningReels;
+
+    const reels = document.querySelectorAll('.reel');
+
+    reels.forEach((reel) => {
+      const isWinningReel = winningReels.some((winReel) => {
+        return reel.textContent.toLowerCase() === winReel;
+      });
+
+      if (isWinningReel) {
+        reel.classList.add('win');
+      }
+    });
   };
 
 
@@ -233,6 +284,7 @@ const FruitMachine = function () {
   this.getSpinScore = (reels, spins) => {
     let score = 0;
 
+    let currentwinningReels = [];
 
     const spinResultReels = {};
 
@@ -249,6 +301,8 @@ const FruitMachine = function () {
       const reel = matchReels[0];
 
       score = REELS_SCORES[reel][0];
+
+      currentwinningReels.push(reel);
     } else if (matchReels.length === 2) {
       const firstReel = matchReels[0];
       const secondReel = matchReels[1];
@@ -258,10 +312,21 @@ const FruitMachine = function () {
 
       if (loseReel === 'wild') {
         score = REELS_SCORES[winReel][2];
+
+        currentwinningReels.push(loseReel);
       } else {
         score = REELS_SCORES[winReel][1];
       }
+
+      currentwinningReels.push(winReel);
     }
+
+
+    updateState({
+      spin: {
+        winningReels: currentwinningReels,
+      },
+    });
 
 
     return score;
@@ -293,6 +358,8 @@ const FruitMachine = function () {
 
 
     reels.forEach((reel, i) => {
+      reel.classList.remove('win');
+
       reel.innerHTML = state.reels[i][state.spin.reels[i]];
     });
 
@@ -314,38 +381,12 @@ const FruitMachine = function () {
     repayCredit.style.display = state.credit === 0 ? 'none' : 'block';
 
     spinCount.innerHTML = `Your spin count: <span>${state.spin.count}</span>`;
+
+
+    highlightWinningReels();
   };
 
-  this.generatePrizeTable = () => {
-    const prizeTable = document.querySelector('.prize-table table');
-
-    const prizeTbody = document.createElement('tbody');
-    prizeTable.appendChild(prizeTbody);
-
-
-    const reelsItems = Object.keys(REELS_SCORES);
-
-    reelsItems.forEach((reelItem) => {
-      const tr = document.createElement('tr');
-
-      const td = document.createElement('td');
-      td.innerHTML = reelItem;
-
-      tr.appendChild(td);
-
-
-      REELS_SCORES[reelItem].forEach((reelScore) => {
-        const td = document.createElement('td');
-        td.innerHTML = reelScore;
-
-        tr.appendChild(td);
-      });
-
-      prizeTbody.appendChild(tr);
-    });
-  };
-
-
+  
   this.start = () => {
     const reels = getShuffledReelsList();
     const spin = this.spin(reels);
@@ -374,7 +415,7 @@ const FruitMachine = function () {
     togglePrizeTable.addEventListener('click', handleTogglePrizeTableClick);
 
 
-    this.generatePrizeTable();
+    generatePrizeTable();
 
     this.updateUI();
   };
