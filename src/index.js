@@ -12,10 +12,10 @@ import './assets/styles/main.css';
 
 
 const FruitMachine = function () {
-  const SPIN_COST = 3;
+  const SPIN_COST = 30;
 
-  const CREDIT_MIN_AMOUNT = 10;
-  const CREDIT_MAX_AMOUNT = 100;
+  const CREDIT_MIN_AMOUNT = 300;
+  const CREDIT_MAX_AMOUNT = 1000;
 
 
   this.state = {
@@ -30,7 +30,7 @@ const FruitMachine = function () {
       total: 0,
       best: 0,
     },
-    money: 30,
+    money: 300,
     credit: 0,
     message: 'Click \'Spin\' for starting playing!',
   };
@@ -139,15 +139,16 @@ const FruitMachine = function () {
     const reels = getShuffledReelsList();
     const spin = this.spin(reels);
     const score = this.getSpinScore(reels, spin);
+    const price = score * 10;
 
 
     // .game
     let message = '';
 
     if (score > 0) {
-      message = score > 50 ?
-        `Woooooow! Congratulations! You won a lot - <span class="green">${score}$</span>!` :
-        `Woohoo! Congratulations! You won <span class="green">${score}$</span> :)`;
+      message = price > 500 ?
+        `Woooooow! Congratulations! You won a lot - <span class="green">${price}$</span>!` :
+        `Woohoo! Congratulations! You won <span class="green">${price}$</span> :)`;
     } else {
       message = `Damn, You lost :( <br> Try again, I believe You will win next time :)`;
     }
@@ -159,7 +160,7 @@ const FruitMachine = function () {
     const totalScore = state.score.total + currentScore;
     const bestScore = state.score.best > currentScore ? state.score.best : currentScore;
 
-    const money = state.money - SPIN_COST + currentScore;
+    const money = state.money - SPIN_COST + price;
 
     const credit = state.credit;
 
