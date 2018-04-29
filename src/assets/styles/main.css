@@ -10,6 +10,10 @@ body {
 
 p {
   margin-top: 0;
+  margin-bottom: 5px;
+}
+
+p:last-child {
   margin-bottom: 0;
 }
 
@@ -17,8 +21,30 @@ p span {
   font-weight: 500;
 }
 
+p span.green {
+  color: forestgreen;
+}
+
+.btn {
+  display: inline-block;
+  vertical-align: top;
+  color: var(--main-color);
+  background-color: transparent;
+  border: 1px solid #c8c8c8;
+  border-radius: 5px;
+  padding: 5px 10px;
+  outline: none;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn:hover {
+  color: red;
+  border-color: red;
+}
+
 .fruit-machine {
-  max-width: 400px;
+  max-width: 450px;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -70,25 +96,11 @@ p span {
   margin-bottom: 20px;
 }
 
-.spin-button {
-  display: inline-block;
-  vertical-align: top;
-  color: var(--main-color);
-  background-color: transparent;
-  border: 1px solid #c8c8c8;
-  border-radius: 5px;
-  padding: 5px 10px;
-  outline: none;
-  cursor: pointer;
-  transition: 0.3s;
+.spin-cost {
+  margin-bottom: 0;
 }
 
-.spin-button:hover {
-  color: red;
-  border-color: red;
-}
-
-.message {
+.message-wrapper {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -97,6 +109,14 @@ p span {
   margin-top: 0;
   margin-bottom: 0;
   transform: translateY(100%);
+}
+
+.message {
+  margin-bottom: 20px;
+}
+
+.message:last-child {
+  margin-bottom: 0;
 }
 
 .info {

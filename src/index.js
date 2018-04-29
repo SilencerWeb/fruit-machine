@@ -1,3 +1,5 @@
+import objectAssignDeep from 'object-assign-deep';
+
 import {
   generateRandomNumber,
   getShuffledReelsList,
@@ -10,19 +12,101 @@ import './assets/styles/main.css';
 
 
 const FruitMachine = function () {
+  const SPIN_COST = 3;
+
+  const CREDIT_MIN_AMOUNT = 10;
+  const CREDIT_MAX_AMOUNT = 100;
+
+
   this.state = {
     reels: [],
-    spin: [],
+    spin: {
+      reels: [],
+      count: 0,
+    },
     score: {
       current: 0,
       previous: 0,
       total: 0,
       best: 0,
     },
-    spinAmount: 0,
     money: 30,
-    spinCost: 3,
-    message: 'Click \'Spin!\' for starting playing!',
+    credit: 0,
+    message: 'Click \'Spin\' for starting playing!',
+  };
+
+
+  const updateState = (newState) => {
+    const state = this.state;
+
+    this.state = objectAssignDeep(state, newState);
+  };
+
+
+  const getCredit = () => {
+    const state = this.state;
+
+
+    const creditAmount = prompt(`How much do You want? Not less than ${CREDIT_MIN_AMOUNT}$ and not more than ${CREDIT_MAX_AMOUNT}$!`);
+
+
+    if (creditAmount === null) return;
+
+
+    if (creditAmount >= CREDIT_MIN_AMOUNT && creditAmount <= CREDIT_MAX_AMOUNT) {
+      const money = state.money + +creditAmount;
+      const message = `You successfully got credit for <span class="green">${creditAmount}$</span> :) 
+                      <br>
+                      <br> 
+                      Please, don't forget to repay it, otherwise you can't get another one`;
+
+      const getCredit = document.querySelector('.get-credit');
+
+
+      updateState({
+        money: money,
+        credit: creditAmount,
+        message: message,
+      });
+
+
+      getCredit.style.display = 'none';
+
+      this.updateUI();
+    } else if (creditAmount > CREDIT_MAX_AMOUNT) {
+      alert('That\'s too much, don\'t be so impudent! -_-');
+
+      getCredit();
+    } else if (creditAmount < CREDIT_MIN_AMOUNT) {
+      alert('That\'s too little, don\'t be so shy to get more :)');
+
+      getCredit();
+    }
+  };
+
+  const repayCredit = () => {
+    const state = this.state;
+
+
+    const money = state.money;
+    const credit = state.credit;
+
+    const canRepay = money >= credit;
+
+
+    updateState({
+      money: canRepay ? money - credit : money,
+      credit: canRepay ? 0 : credit,
+      message: canRepay ?
+        'You successfully repaid your credit :)' :
+        `Oh, you don't have enough money for repaying your credit :(
+        <br>
+        <br>
+         You need <span>${credit - money}$</span> more`,
+    });
+
+
+    this.updateUI();
   };
 
 
@@ -32,10 +116,17 @@ const FruitMachine = function () {
     const state = this.state;
 
 
-    if (state.money < state.spinCost) {
-      const message = `Sorry, You don't have enough money for playing :(`;
+    if (state.money < SPIN_COST) {
+      let message = `Sorry, You don't have enough money for playing :(`;
+      const getCredit = document.querySelector('.get-credit');
 
-      this.state = Object.assign(state, {
+      if (state.credit === 0) { // If no unpaid credit
+        getCredit.style.display = '';
+      } else {
+        message += `<br><br> And I can't give You another credit because You haven't repay for the last one :(`;
+      }
+
+      updateState({
         message: message,
       });
 
@@ -53,43 +144,59 @@ const FruitMachine = function () {
     // .game
     let message = '';
 
-
     if (score > 0) {
       message = score > 50 ?
-        `Woooooow! Congratulations! You won a lot - <span>${score}$</span>!` :
-        `Woohoo! Congratulations! You won <span>${score}$</span> :)`;
+        `Woooooow! Congratulations! You won a lot - <span class="green">${score}$</span>!` :
+        `Woohoo! Congratulations! You won <span class="green">${score}$</span> :)`;
     } else {
-      message = `Damn, You lost :( <br/> Try again, I believe You will win next time :)`;
+      message = `Damn, You lost :( <br> Try again, I believe You will win next time :)`;
     }
 
 
     // .info
     const currentScore = score;
-    const previousScore = state.score.current; // Because current score hasn't updated yet!
+    const previousScore = state.score.current; // Because current score hasn't updated yet
     const totalScore = state.score.total + currentScore;
     const bestScore = state.score.best > currentScore ? state.score.best : currentScore;
 
-    const money = state.money - state.spinCost + currentScore;
+    const money = state.money - SPIN_COST + currentScore;
 
-    const spinAmount = state.spinAmount + 1;
+    const credit = state.credit;
+
+    const spinCount = state.spin.count + 1;
 
 
-    this.state = Object.assign(state, {
+    updateState({
       reels: reels,
-      spin: spin,
+      spin: {
+        reels: spin,
+        count: spinCount,
+      },
       score: {
         current: currentScore,
         previous: previousScore,
         total: totalScore,
         best: bestScore,
       },
-      spinAmount: spinAmount,
       money: money,
+      credit: credit,
       message: message,
     });
 
 
     this.updateUI();
+  };
+
+  const handleGetCreditClick = (e) => {
+    e.preventDefault();
+
+    getCredit();
+  };
+
+  const handleRepayCreditClick = (e) => {
+    e.preventDefault();
+
+    repayCredit();
   };
 
 
@@ -98,7 +205,6 @@ const FruitMachine = function () {
       return generateRandomNumber(1, reels.length);
     });
   };
-
 
   this.getSpinScore = (reels, spins) => {
     let score = 0;
@@ -156,16 +262,19 @@ const FruitMachine = function () {
 
     const money = fruitMachine.querySelector('.money');
 
-    const spinAmount = fruitMachine.querySelector('.spin-amount');
+    const credit = fruitMachine.querySelector('.credit');
+    const repayCredit = fruitMachine.querySelector('.repay-credit');
+
+    const spinCount = fruitMachine.querySelector('.spin-amount');
 
 
     reels.forEach((reel, i) => {
-      reel.innerHTML = state.reels[i][state.spin[i]];
+      reel.innerHTML = state.reels[i][state.spin.reels[i]];
     });
 
 
     // .game
-    spinCost.innerHTML = `Spin cost - <span>${state.spinCost}$</span>`;
+    spinCost.innerHTML = `Spin cost - <span>${SPIN_COST}$</span>`;
     message.innerHTML = state.message;
 
 
@@ -177,26 +286,36 @@ const FruitMachine = function () {
 
     money.innerHTML = `Your money: <span>${state.money}$</span>`;
 
-    spinAmount.innerHTML = `Your spin count: <span>${state.spinAmount}</span>`;
+    credit.innerHTML = `Your credit: <span>${state.credit}$</span>`;
+    repayCredit.style.display = state.credit === 0 ? 'none' : 'block';
+
+    spinCount.innerHTML = `Your spin count: <span>${state.spin.count}</span>`;
   };
 
 
   this.start = () => {
-    const state = this.state;
-
-
     const reels = getShuffledReelsList();
     const spin = this.spin(reels);
 
-
-    this.state = Object.assign(state, {
+    updateState({
       reels: reels,
-      spin: spin,
+      spin: {
+        reels: spin,
+      },
     });
 
 
-    const spinButton = document.querySelector('.spin-button');
+    const fruitMachine = document.querySelector('.fruit-machine');
+
+
+    const spinButton = fruitMachine.querySelector('.spin-button');
     spinButton.addEventListener('click', handleSpinButtonClick);
+
+    const getCredit = fruitMachine.querySelector('.get-credit');
+    getCredit.addEventListener('click', handleGetCreditClick);
+
+    const repayCredit = fruitMachine.querySelector('.repay-credit');
+    repayCredit.addEventListener('click', handleRepayCreditClick);
 
 
     this.updateUI();
