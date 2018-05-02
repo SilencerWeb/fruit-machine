@@ -1,28 +1,42 @@
 import objectAssignDeep from 'object-assign-deep';
+import lodashShuffle from 'lodash.shuffle';
 
 import {
   generateRandomNumber,
-  getShuffledReelsList,
+  wait,
 } from './helpers';
-
-import { REELS_SCORES } from './constants';
 
 import 'normalize.css/normalize.css';
 import './assets/styles/main.css';
 
 
 const FruitMachine = function () {
+  const REELS_SCORES = {
+    wild: [1000, 100, 1000],
+    star: [900, 90, 180],
+    bell: [800, 80, 160],
+    shell: [700, 70, 140],
+    seven: [600, 60, 120],
+    cherry: [500, 50, 100],
+    bar: [400, 40, 80],
+    king: [300, 30, 60],
+    queen: [200, 20, 40],
+    jack: [100, 10, 20],
+  };
+
+  const REELS_AMOUNT = 3;
+
   const SPIN_COST = 30;
 
   const CREDIT_MIN_AMOUNT = 300;
   const CREDIT_MAX_AMOUNT = 1000;
 
+  const REELS_SPINNING_ANIMATION_TIME = 1500;
+
 
   this.state = {
-    reels: [],
     spin: {
-      reels: [],
-      winningReels: [],
+      reelNames: [],
       count: 0,
     },
     score: {
@@ -47,21 +61,19 @@ const FruitMachine = function () {
   const getCredit = () => {
     const state = this.state;
 
-
     const creditAmount = prompt(`How much do You want? Not less than ${CREDIT_MIN_AMOUNT}$ and not more than ${CREDIT_MAX_AMOUNT}$!`);
 
 
-    if (creditAmount === null) return;
+    if (creditAmount === null) {
+      return false;
+    } else if (creditAmount >= CREDIT_MIN_AMOUNT && creditAmount <= CREDIT_MAX_AMOUNT) {
+      const getCredit = document.querySelector('.get-credit');
 
-
-    if (creditAmount >= CREDIT_MIN_AMOUNT && creditAmount <= CREDIT_MAX_AMOUNT) {
       const money = state.money + +creditAmount;
       const message = `You successfully got credit for <span class="green">${creditAmount}$</span> :) 
                       <br>
                       <br> 
                       Please, don't forget to repay it, otherwise you can't get another one`;
-
-      const getCredit = document.querySelector('.get-credit');
 
 
       updateState({
@@ -69,7 +81,6 @@ const FruitMachine = function () {
         credit: creditAmount,
         message: message,
       });
-
 
       getCredit.style.display = 'none';
 
@@ -88,7 +99,6 @@ const FruitMachine = function () {
   const repayCredit = () => {
     const state = this.state;
 
-
     const money = state.money;
     const credit = state.credit;
 
@@ -106,32 +116,94 @@ const FruitMachine = function () {
          You need <span>${credit - money}$</span> more`,
     });
 
-
     this.updateUI();
   };
 
-  
+
+  const generateReels = () => {
+    const reelsWrapper = document.querySelector('.reels-wrapper');
+    const reels = reelsWrapper.querySelectorAll('.reel');
+
+    const spinReelNames = this.state.spin.reelNames;
+
+
+    if (reels.length) {
+      reels.forEach((reel, i) => {
+        const reelChildren = reel.children;
+
+        reelChildren.item(reelChildren.length - 1).innerHTML = spinReelNames[i];
+
+        setTimeout(() => {
+          reelChildren.item(0).innerHTML = spinReelNames[i];
+        }, REELS_SPINNING_ANIMATION_TIME / 2); // We have to change first item's text after the start and before the end of animation
+      });
+    } else {
+      for (let i = 0; i < REELS_AMOUNT; i++) {
+        const reel = document.createElement('div');
+        reel.classList.add('reel');
+
+        const shuffledReelItemNames = lodashShuffle(Object.keys(REELS_SCORES));
+
+
+        shuffledReelItemNames.forEach((reelItemName) => {
+          const item = document.createElement('div');
+          item.innerHTML = reelItemName;
+
+          if (reelItemName.toLowerCase() === spinReelNames[i].toLowerCase()) {
+            reel.prepend(item.cloneNode(true));
+            reel.appendChild(item.cloneNode(true)); // We have to insert winning reel in the start and in the end due to how animation works
+          } else {
+            reel.insertBefore(item, reel.children[2]); // But other reels we have to insert in any position except the start and the end
+          }
+        });
+
+        reelsWrapper.appendChild(reel);
+      }
+    }
+  };
+
+  const animateReels = () => {
+    const reels = document.querySelectorAll('.reel');
+
+    const reelChildren = [...reels[0].children];
+
+    const reelHeight = reelChildren.reduce((height, reelChild, i) => {
+      return i < reelChildren.length - 1 ?
+        height + reelChild.offsetHeight : height; // We don't need height of the last child due how animation works
+    }, 0);
+
+
+    reels.forEach((reelDOM) => {
+      reelDOM.style.cssText =
+        `top: -${reelHeight}px; 
+         transition: ${REELS_SPINNING_ANIMATION_TIME}ms;`;
+
+      setTimeout(() => reelDOM.style.cssText = '', REELS_SPINNING_ANIMATION_TIME); // Clear animation styles
+    });
+  };
+
+
   const generatePrizeTable = () => {
     const prizeTable = document.querySelector('.prize-table table');
 
     const prizeTbody = document.createElement('tbody');
     prizeTable.appendChild(prizeTbody);
 
+    const reelsItemNames = Object.keys(REELS_SCORES);
 
-    const reelsItems = Object.keys(REELS_SCORES);
 
-    reelsItems.forEach((reelItem) => {
+    reelsItemNames.forEach((reelItemName) => {
       const tr = document.createElement('tr');
 
       const td = document.createElement('td');
-      td.innerHTML = reelItem;
+      td.innerHTML = reelItemName;
 
       tr.appendChild(td);
 
 
-      REELS_SCORES[reelItem].forEach((reelScore) => {
+      REELS_SCORES[reelItemName].forEach((reelScore) => {
         const td = document.createElement('td');
-        td.innerHTML = reelScore * 10;
+        td.innerHTML = reelScore;
 
         tr.appendChild(td);
       });
@@ -141,45 +213,28 @@ const FruitMachine = function () {
   };
 
   const togglePrizeTable = () => {
-    const togglePrizeTableButton = document.querySelector('.toggle-prize-table');
-
     const prizeTable = document.querySelector('.prize-table table');
+
+    const togglePrizeTableButton = document.querySelector('.toggle-prize-table');
 
 
     if (prizeTable.classList.contains('hidden')) {
-      togglePrizeTableButton.innerHTML = 'Hide prize table';
-
       prizeTable.classList.remove('hidden');
-    } else {
-      togglePrizeTableButton.innerHTML = 'Show prize table';
 
+      togglePrizeTableButton.innerHTML = 'Hide prize table';
+    } else {
       prizeTable.classList.add('hidden');
+
+      togglePrizeTableButton.innerHTML = 'Show prize table';
     }
   };
-  
-  
-  const highlightWinningReels = () => {
-    const state = this.state;
 
 
-    const winningReels = state.spin.winningReels;
-
-    const reels = document.querySelectorAll('.reel');
-
-    reels.forEach((reel) => {
-      const isWinningReel = winningReels.some((winReel) => {
-        return reel.textContent.toLowerCase() === winReel;
-      });
-
-      if (isWinningReel) {
-        reel.classList.add('win');
-      }
-    });
-  };
-
-
-  const handleSpinButtonClick = (e) => {
+  const handleSpinButtonClick = async(e) => {
     e.preventDefault();
+
+    const target = e.currentTarget;
+    target.removeEventListener('click', handleSpinButtonClick);
 
     const state = this.state;
 
@@ -188,11 +243,13 @@ const FruitMachine = function () {
       let message = `Sorry, You don't have enough money for playing :(`;
       const getCredit = document.querySelector('.get-credit');
 
+
       if (state.credit === 0) { // If no unpaid credit
         getCredit.style.display = '';
       } else {
-        message += `<br><br> And I can't give You another credit because You haven't repay for the last one :(`;
+        message += `<br><br> And I can't give You another credit because You haven't repaid for the last one :(`;
       }
+
 
       updateState({
         message: message,
@@ -200,27 +257,25 @@ const FruitMachine = function () {
 
       this.updateUI();
 
-      return;
+      target.addEventListener('click', handleSpinButtonClick);
+
+      return false;
     }
 
 
-    const reels = getShuffledReelsList();
-    const spin = this.spin(reels);
-    const score = this.getSpinScore(reels, spin);
-    const prize = score * 10;
+    let money = state.money - SPIN_COST;
 
+    updateState({
+      money: money,
+    });
+
+    this.updateUI();
+
+
+    const score = this.spin();
 
     // .game
     let message = '';
-
-    if (score > 0) {
-      message = prize > 500 ?
-        `Woooooow! Congratulations! You won a lot - <span class="green">${prize}$</span>!` :
-        `Woohoo! Congratulations! You won <span class="green">${prize}$</span> :)`;
-    } else {
-      message = `Damn, You lost :( <br> Try again, I believe You will win next time :)`;
-    }
-
 
     // .info
     const currentScore = score;
@@ -228,19 +283,25 @@ const FruitMachine = function () {
     const totalScore = state.score.total + currentScore;
     const bestScore = state.score.best > currentScore ? state.score.best : currentScore;
 
-    const money = state.money - SPIN_COST + prize;
+    money += score;
 
     const credit = state.credit;
 
-    const spinCount = state.spin.count + 1;
+
+    if (score > 0) {
+      message = score > 500 ?
+        `Woooooow! Congratulations!
+        <br>
+        You won a lot - <span class="green">${score}$</span>!` :
+        `Woohoo! Congratulations!
+        <br>
+        You won <span class="green">${score}$</span> :)`;
+    } else {
+      message = `Damn, You lost :( <br> Try again, I believe You will win next time :)`;
+    }
 
 
     updateState({
-      reels: reels,
-      spin: {
-        reels: spin,
-        count: spinCount,
-      },
       score: {
         current: currentScore,
         previous: previousScore,
@@ -253,7 +314,14 @@ const FruitMachine = function () {
     });
 
 
+    generateReels();
+
+    animateReels();
+    await wait(REELS_SPINNING_ANIMATION_TIME);
+
     this.updateUI();
+
+    target.addEventListener('click', handleSpinButtonClick);
   };
 
   const handleGetCreditClick = (e) => {
@@ -275,71 +343,77 @@ const FruitMachine = function () {
   };
 
 
-  this.spin = (reels) => {
-    return reels.map(() => {
-      return generateRandomNumber(1, reels.length);
-    });
-  };
-
-  this.getSpinScore = (reels, spins) => {
+  this.getScore = (reelNames) => {
     let score = 0;
 
-    let currentwinningReels = [];
+    const reelNamesMatchAmount = {};
 
-    const spinResultReels = {};
 
-    spins.forEach((spin, i) => {
-      const reel = reels[i][spin].toLowerCase();
-
-      spinResultReels[reel] = spinResultReels[reel] ? spinResultReels[reel] + 1 : 1;
+    reelNames.forEach((reelName) => { // Counting how many times does every reel match
+      reelNamesMatchAmount[reelName] = reelNamesMatchAmount[reelName] ?
+        reelNamesMatchAmount[reelName] + 1 : 1;
     });
 
 
-    const matchReels = Object.keys(spinResultReels);
+    const matchedReelNames = Object.keys(reelNamesMatchAmount);
 
-    if (matchReels.length === 1) {
-      const reel = matchReels[0];
 
-      score = REELS_SCORES[reel][0];
+    if (matchedReelNames.length === 1) { // If we have 3 same reel names in reelNames, e.g. ['wild', 'wild', 'wild']
+      const reelName = matchedReelNames.join('');
 
-      currentwinningReels.push(reel);
-    } else if (matchReels.length === 2) {
-      const firstReel = matchReels[0];
-      const secondReel = matchReels[1];
+      score = REELS_SCORES[reelName][0];
+    } else if (matchedReelNames.length === 2) { // If we have 2 same reel names in reelNames, e.g. ['wild', 'wild', 'cherry']
+      const firstReelName = matchedReelNames[0];
+      const secondReelName = matchedReelNames[1];
 
-      const winReel = spinResultReels[firstReel] > spinResultReels[secondReel] ? firstReel : secondReel;
-      const loseReel = spinResultReels[firstReel] < spinResultReels[secondReel] ? firstReel : secondReel;
+      const winReel = reelNamesMatchAmount[firstReelName] > reelNamesMatchAmount[secondReelName] ?
+        firstReelName : secondReelName; // 2 same reels
+      const loseReel = reelNamesMatchAmount[firstReelName] < reelNamesMatchAmount[secondReelName] ?
+        firstReelName : secondReelName; // 3rd reel
+
 
       if (loseReel === 'wild') {
         score = REELS_SCORES[winReel][2];
-
-        currentwinningReels.push(loseReel);
       } else {
         score = REELS_SCORES[winReel][1];
       }
+    }
 
-      currentwinningReels.push(winReel);
+    return score;
+  };
+
+  this.spin = () => {
+    const state = this.state;
+
+    const spinReelNames = [];
+
+    const reelNames = Object.keys(REELS_SCORES);
+
+
+    for (let i = 0; i < REELS_AMOUNT; i++) {
+      const randomNumber = generateRandomNumber(1, reelNames.length);
+
+      spinReelNames.push(reelNames[randomNumber]);
     }
 
 
     updateState({
       spin: {
-        winningReels: currentwinningReels,
+        reelNames: spinReelNames,
+        count: state.spin.count++,
       },
     });
 
 
-    return score;
+    return this.getScore(spinReelNames);
   };
 
 
   this.updateUI = () => {
     const state = this.state;
 
-
     // .game
     const fruitMachine = document.querySelector('.fruit-machine');
-    const reels = fruitMachine.querySelectorAll('.reel');
     const spinCost = fruitMachine.querySelector('.spin-cost');
     const message = fruitMachine.querySelector('.message');
 
@@ -357,17 +431,9 @@ const FruitMachine = function () {
     const spinCount = fruitMachine.querySelector('.spin-amount');
 
 
-    reels.forEach((reel, i) => {
-      reel.classList.remove('win');
-
-      reel.innerHTML = state.reels[i][state.spin.reels[i]];
-    });
-
-
     // .game
     spinCost.innerHTML = `Spin cost - <span>${SPIN_COST}$</span>`;
     message.innerHTML = state.message;
-
 
     // .info
     currentScore.innerHTML = `Your current score: <span>${state.score.current}</span>`;
@@ -381,26 +447,14 @@ const FruitMachine = function () {
     repayCredit.style.display = state.credit === 0 ? 'none' : 'block';
 
     spinCount.innerHTML = `Your spin count: <span>${state.spin.count}</span>`;
-
-
-    highlightWinningReels();
   };
 
-  
-  this.start = () => {
-    const reels = getShuffledReelsList();
-    const spin = this.spin(reels);
 
-    updateState({
-      reels: reels,
-      spin: {
-        reels: spin,
-      },
-    });
+  this.start = () => {
+    this.spin();
 
 
     const fruitMachine = document.querySelector('.fruit-machine');
-
 
     const spinButton = fruitMachine.querySelector('.spin-button');
     spinButton.addEventListener('click', handleSpinButtonClick);
@@ -415,7 +469,11 @@ const FruitMachine = function () {
     togglePrizeTable.addEventListener('click', handleTogglePrizeTableClick);
 
 
+    generateReels();
+
+
     generatePrizeTable();
+
 
     this.updateUI();
   };

@@ -87,21 +87,34 @@ p span.green {
 }
 
 .reels-wrapper {
+  position: relative;
   display: flex;
   align-items: center;
   width: 100%;
+  height: 36px;
   margin-bottom: 20px;
+  overflow: hidden;
 }
 
 .reel {
+  position: absolute;
+  top: 0;
   flex: 0 0 33.333%;
   font-size: 2rem;
   text-align: center;
   text-transform: uppercase;
 }
 
-.reel.win {
-  text-decoration: line-through;
+.reel:first-child {
+  left: 0;
+}
+
+.reel:nth-of-type(2) {
+  left: 33.333%;
+}
+
+.reel:last-child {
+  right: 0;
 }
 
 .spin {
