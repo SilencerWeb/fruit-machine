@@ -21,6 +21,8 @@ export const FruitMachine = function () {
     jack: [100, 10, 20],
   };
 
+  const REEL_NAMES = Object.keys(REELS_SCORES);
+
   const REELS_AMOUNT = 3;
 
   const SPIN_COST = 30;
@@ -219,7 +221,7 @@ export const FruitMachine = function () {
         const reel = document.createElement('div');
         reel.classList.add('reel');
 
-        const shuffledReelItemNames = lodashShuffle(Object.keys(REELS_SCORES));
+        const shuffledReelItemNames = lodashShuffle(REEL_NAMES);
 
 
         shuffledReelItemNames.forEach((reelItemName) => {
@@ -266,10 +268,8 @@ export const FruitMachine = function () {
     const prizeTbody = document.createElement('tbody');
     prizeTable.appendChild(prizeTbody);
 
-    const reelsItemNames = Object.keys(REELS_SCORES);
 
-
-    reelsItemNames.forEach((reelItemName) => {
+    REEL_NAMES.forEach((reelItemName) => {
       const tr = document.createElement('tr');
 
       const td = document.createElement('td');
@@ -423,14 +423,12 @@ export const FruitMachine = function () {
   this.spin = (spinReelNames = []) => {
     const state = this.state;
 
-    const reelNames = Object.keys(REELS_SCORES);
-
 
     if (!spinReelNames.length) {
       for (let i = 0; i < REELS_AMOUNT; i++) {
-        const randomNumber = generateRandomNumber(1, reelNames.length);
+        const randomNumber = generateRandomNumber(1, REEL_NAMES.length);
 
-        spinReelNames.push(reelNames[randomNumber]);
+        spinReelNames.push(REEL_NAMES[randomNumber]);
       }
     }
 
