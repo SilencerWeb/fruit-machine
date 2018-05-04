@@ -7,10 +7,14 @@ module.exports = () => {
   return [
     {
       mode: production ? 'production' : 'development',
+      devtool: 'cheap-module-source-map',
       entry: './src/index.js',
       output: {
         path: path.resolve(__dirname, 'build'),
         filename: 'bundle.js',
+        devtoolModuleFilenameTemplate(info) {
+          return `file:///${info.absoluteResourcePath.replace(/\\/g, '/')}`;
+        },
       },
       module: {
         rules: [
