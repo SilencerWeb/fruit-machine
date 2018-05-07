@@ -290,7 +290,7 @@ export const FruitMachine = function () {
   };
 
   const togglePrizeTable = () => {
-    const prizeTable = document.querySelector('.prize-table table');
+    const prizeTable = document.querySelector('.prize-table');
 
     const togglePrizeTableButton = document.querySelector('.toggle-prize-table');
 
@@ -298,11 +298,33 @@ export const FruitMachine = function () {
     if (prizeTable.classList.contains('hidden')) {
       prizeTable.classList.remove('hidden');
 
+      togglePrizeTableButton.classList.add('toggled');
       togglePrizeTableButton.innerHTML = 'Hide prize table';
     } else {
       prizeTable.classList.add('hidden');
 
+      togglePrizeTableButton.classList.remove('toggled');
       togglePrizeTableButton.innerHTML = 'Show prize table';
+    }
+  };
+
+
+  const toggleInfo = () => {
+    const info = document.querySelector('.info');
+
+    const toggleInfoButton = document.querySelector('.toggle-info');
+
+
+    if (info.classList.contains('hidden')) {
+      info.classList.remove('hidden');
+
+      toggleInfoButton.classList.add('toggled');
+      toggleInfoButton.innerHTML = 'Hide info';
+    } else {
+      info.classList.add('hidden');
+
+      toggleInfoButton.classList.remove('toggled');
+      toggleInfoButton.innerHTML = 'Show info';
     }
   };
 
@@ -419,6 +441,12 @@ export const FruitMachine = function () {
     togglePrizeTable();
   };
 
+  const handleToggleInfoClick = (e) => {
+    e.preventDefault();
+
+    toggleInfo();
+  };
+
 
   this.spin = (spinReelNames = []) => {
     const state = this.state;
@@ -461,6 +489,9 @@ export const FruitMachine = function () {
 
     const togglePrizeTable = fruitMachine.querySelector('.toggle-prize-table');
     togglePrizeTable.addEventListener('click', handleTogglePrizeTableClick);
+
+    const toggleInfo = fruitMachine.querySelector('.toggle-info');
+    toggleInfo.addEventListener('click', handleToggleInfoClick);
 
 
     generateReels();
