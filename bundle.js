@@ -2480,7 +2480,7 @@ const FruitMachine = function () {
 
       reelDOM.style.cssText =
         `top: 0; 
-         transition: ${reelSpinningAnimationTime}ms cubic-bezier(1, 1, 0, 0);`;
+         transition: ${reelSpinningAnimationTime}ms cubic-bezier(0.4, 0, 0.2, 1);`;
 
       setTimeout(() => reelDOM.style.cssText = '', reelSpinningAnimationTime); // Clear animation styles
     });
