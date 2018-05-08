@@ -102,7 +102,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ":root {\n  --main-color: #ffffff;\n  --second-color: #323232;\n\n  --background: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);\n}\n\n*,\n*:before,\n*:after {\n  box-sizing: border-box;\n}\n\nhtml {\n  font-size: 62.5%;\n}\n\nbody {\n  position: relative;\n  font-family: 'Montserrat', sans-serif;\n  font-size: 1.6rem;\n  color: var(--main-color);\n}\n\nh1, h2, h3, h4, h5, h6 {\n  color: var(--second-color);\n}\n\nh2 {\n  font-size: 3rem;\n  font-weight: 600;\n}\n\np {\n  margin-top: 0;\n  margin-bottom: 0.5rem;\n}\n\np:last-child {\n  margin-bottom: 0;\n}\n\np span {\n  font-weight: 500;\n  color: var(--second-color);\n}\n\n.btn {\n  display: inline-block;\n  vertical-align: top;\n  color: var(--main-color);\n  background-color: transparent;\n  border: 0.1rem solid #ffffff;\n  border-radius: 0.5rem;\n  padding: 0.5rem 1rem;\n  outline: none;\n  cursor: pointer;\n  transition: 0.3s;\n}\n\n.btn:hover {\n  color: #323232;\n  border-color: #323232;\n}\n\n.fruit-machine {\n  position: relative;\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  min-height: 100vh;\n  background: var(--background);\n}\n\n.header {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  padding: 1.5rem 1rem;\n}\n\n.header h1 {\n  position: relative;\n  z-index: 9;\n  font-size: 7rem;\n  font-weight: 600;\n  line-height: 1;\n  text-transform: uppercase;\n  margin-top: 0;\n  margin-bottom: 0;\n}\n\n.game {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  width: 60rem;\n  transform: translate(-50%, -50%);\n}\n\n.reels-wrapper {\n  position: relative;\n  width: 100%;\n  height: 4.6rem;\n  margin-bottom: 2rem;\n  overflow: hidden;\n}\n\n.reel {\n  position: absolute;\n  top: 0;\n  width: 33.333%;\n  font-size: 4rem;\n  text-align: center;\n  text-transform: uppercase;\n}\n\n.reel:first-child {\n  left: 0;\n}\n\n.reel:nth-of-type(2) {\n  left: 33.333%;\n}\n\n.reel:last-child {\n  right: 0;\n}\n\n.spin {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  margin-bottom: 2rem;\n}\n\n.message-wrapper {\n  position: absolute;\n  bottom: 0;\n  left: 0;\n  width: 100%;\n  text-align: center;\n  margin-top: 0;\n  margin-bottom: 0;\n  transform: translateY(100%);\n}\n\n.message {\n  margin-bottom: 2rem;\n}\n\n.message:last-child {\n  margin-bottom: 0;\n}\n\n.info {\n  position: absolute;\n  top: 0;\n  right: 0;\n  z-index: 1;\n  width: 22rem;\n  height: 100%;\n  min-height: 100vh;\n  padding: 2rem 1rem;\n  transition: 0.3s;\n}\n\n.info h2 {\n  margin-top: 2rem;\n  margin-bottom: 1rem;\n}\n\n.info h2:first-child {\n  margin-top: 0;\n}\n\n.info h2:last-child {\n  margin-bottom: 0;\n}\n\n.info p {\n  margin-bottom: 0.5rem;\n}\n\n.info p:last-child {\n  margin-bottom: 0;\n}\n\n.toggle-info {\n  display: none;\n}\n\n.prize-table {\n  position: absolute;\n  bottom: 0;\n  left: 0;\n  z-index: 1;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n  width: 100%;\n  height: 100%;\n  min-height: 100vh;\n  text-align: center;\n  background: var(--background);\n  padding: 1.5rem 1.25rem;\n  transition: 0.3s;\n}\n\n.prize-table.hidden {\n  visibility: hidden;\n  opacity: 0;\n}\n\n.prize-table table {\n  min-width: 50rem;\n  min-height: 40rem;\n}\n\n.prize-table caption {\n  margin-bottom: 2rem;\n}\n\n.prize-table caption h2 {\n  margin-top: 0;\n  margin-bottom: 0;\n}\n\n.prize-table th {\n  color: var(--second-color);\n}\n\n.prize-table td::first-letter {\n  text-transform: uppercase;\n}\n\n.footer {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  padding: 1.5rem 1rem;\n}\n\n.footer .toggle-info {\n  display: none;\n}\n\n.toggle-prize-table {\n  position: relative;\n}\n\n.toggle-prize-table.toggled {\n  z-index: 9;\n}\n\n@media screen and (max-width: 1200px) {\n\n  .game {\n    width: 55rem;\n  }\n}\n\n@media screen and (max-width: 992px) {\n\n  .header h1 {\n    font-size: 5rem;\n  }\n\n  .info {\n    position: absolute;\n    top: 0;\n    left: 0;\n    z-index: 1;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    width: 100%;\n    height: 100%;\n    min-height: 100vh;\n    background: var(--background);\n    padding-top: 7rem;\n  }\n\n  .info.hidden {\n    opacity: 0;\n    visibility: hidden;\n  }\n\n  .toggle-info {\n    position: relative;\n    display: inline-block;\n    vertical-align: top;\n  }\n\n  .toggle-info.toggled {\n    z-index: 9;\n  }\n}\n\n@media screen and (max-width: 768px) {\n\n  h2 {\n    font-size: 2.5rem;\n  }\n\n  .header h1 {\n    font-size: 4rem;\n  }\n\n  .game {\n    width: 50rem;\n  }\n\n  .reels-wrapper {\n    height: 4.6rem;\n  }\n\n  .prize-table table {\n    min-width: 35rem;\n    min-height: 25rem;\n  }\n}\n\n@media screen and (max-width: 576px) {\n\n  body {\n    font-size: 1.4rem;\n  }\n\n  h2 {\n    font-size: 2rem;\n  }\n\n  .header {\n    display: block;\n  }\n\n  .header h1 {\n    font-size: 3.5rem;\n    text-align: center;\n  }\n\n  .header .toggle-info {\n    display: none;\n  }\n\n  .game {\n    width: 30rem;\n  }\n\n  .reels-wrapper {\n    height: 2.3rem;\n  }\n\n  .reel {\n    font-size: 2rem;\n  }\n\n  .info h2 {\n    margin-top: 1rem;\n    margin-bottom: 0.5rem;\n  }\n\n  .prize-table table {\n    min-width: 30rem;\n  }\n\n  .prize-table caption {\n    margin-bottom: 1rem;\n  }\n\n  .footer {\n    justify-content: space-between;\n  }\n\n  .footer .toggle-info {\n    display: inline-block;\n    vertical-align: top;\n  }\n}", ""]);
+exports.push([module.i, ":root {\n  --main-color: #ffffff;\n  --second-color: #323232;\n\n  --background: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);\n}\n\n*,\n*:before,\n*:after {\n  box-sizing: border-box;\n}\n\nhtml {\n  font-size: 62.5%;\n}\n\nbody {\n  position: relative;\n  font-family: 'Montserrat', sans-serif;\n  font-size: 1.6rem;\n  color: var(--main-color);\n}\n\nh1, h2, h3, h4, h5, h6 {\n  color: var(--second-color);\n}\n\nh2 {\n  font-size: 3rem;\n  font-weight: 600;\n}\n\np {\n  margin-top: 0;\n  margin-bottom: 0.5rem;\n}\n\np:last-child {\n  margin-bottom: 0;\n}\n\np span {\n  font-weight: 500;\n  color: var(--second-color);\n}\n\n.btn {\n  display: inline-block;\n  vertical-align: top;\n  color: var(--main-color);\n  background-color: transparent;\n  border: 0.1rem solid #ffffff;\n  border-radius: 0.5rem;\n  padding: 0.5rem 1rem;\n  outline: none;\n  cursor: pointer;\n  transition: 0.3s;\n}\n\n.btn:hover {\n  color: #323232;\n  border-color: #323232;\n}\n\n.fruit-machine {\n  position: relative;\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  min-height: 100vh;\n  background: var(--background);\n}\n\n.header {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  padding: 1.5rem 1rem;\n}\n\n.header h1 {\n  position: relative;\n  z-index: 9;\n  font-size: 7rem;\n  font-weight: 600;\n  line-height: 1;\n  text-transform: uppercase;\n  margin-top: 0;\n  margin-bottom: 0;\n}\n\n.header .toggle-info {\n  display: none;\n}\n\n.game {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  width: 60rem;\n  transform: translate(-50%, -50%);\n}\n\n.reels-wrapper {\n  position: relative;\n  width: 100%;\n  height: 4.6rem;\n  margin-bottom: 2rem;\n  overflow: hidden;\n}\n\n.reel {\n  position: absolute;\n  top: 0;\n  width: 33.333%;\n  font-size: 4rem;\n  text-align: center;\n  text-transform: uppercase;\n}\n\n.reel:first-child {\n  left: 0;\n}\n\n.reel:nth-of-type(2) {\n  left: 33.333%;\n}\n\n.reel:last-child {\n  right: 0;\n}\n\n.spin {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  margin-bottom: 2rem;\n}\n\n.message-wrapper {\n  position: absolute;\n  bottom: 0;\n  left: 0;\n  width: 100%;\n  text-align: center;\n  margin-top: 0;\n  margin-bottom: 0;\n  transform: translateY(100%);\n}\n\n.message {\n  margin-bottom: 2rem;\n}\n\n.message:last-child {\n  margin-bottom: 0;\n}\n\n.info {\n  position: absolute;\n  top: 0;\n  right: 0;\n  z-index: 1;\n  width: 22rem;\n  height: 100%;\n  min-height: 100vh;\n  padding: 2rem 1rem;\n  transition: 0.3s;\n}\n\n.info h2 {\n  margin-top: 2rem;\n  margin-bottom: 1rem;\n}\n\n.info h2:first-child {\n  margin-top: 0;\n}\n\n.info h2:last-child {\n  margin-bottom: 0;\n}\n\n.info p {\n  margin-bottom: 0.5rem;\n}\n\n.info p:last-child {\n  margin-bottom: 0;\n}\n\n.info .toggle-info {\n  display: none;\n}\n\n.prize-table {\n  position: absolute;\n  top: 0;\n  left: 0;\n  z-index: 1;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n  width: 100%;\n  min-height: 100vh;\n  text-align: center;\n  background: var(--background);\n  padding-top: 11.5rem;\n  padding-bottom: 6.5rem;\n  transition: 0.3s;\n}\n\n.prize-table.hidden {\n  visibility: hidden;\n  opacity: 0;\n}\n\n.prize-table table {\n  min-width: 50rem;\n  min-height: 40rem;\n}\n\n.prize-table caption {\n  margin-bottom: 2rem;\n}\n\n.prize-table caption h2 {\n  margin-top: 0;\n  margin-bottom: 0;\n}\n\n.prize-table th {\n  color: var(--second-color);\n}\n\n.prize-table td::first-letter {\n  text-transform: uppercase;\n}\n\n.prize-table .toggle-prize-table {\n  position: absolute;\n  bottom: 1.5rem;\n  left: 50%;\n  transform: translateX(-50%);\n}\n\n.footer {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  padding: 1.5rem 1rem;\n}\n\n.footer .toggle-info {\n  display: none;\n}\n\n.toggle-prize-table {\n  position: relative;\n}\n\n@media screen and (max-width: 1200px) {\n\n  .game {\n    width: 55rem;\n  }\n}\n\n@media screen and (max-width: 992px) {\n\n  .header h1 {\n    font-size: 5rem;\n  }\n  \n  .info {\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    width: 100%;\n    height: auto;\n    min-height: 100vh;\n    background: var(--background);\n    padding-top: 11.5rem;\n    padding-bottom: 6.5rem;\n  }\n\n  .info.hidden {\n    opacity: 0;\n    visibility: hidden;\n  }\n\n  .info .toggle-info {\n    position: absolute;\n    right: 1rem;\n    bottom: 1.5rem;\n    display: inline-block;\n    vertical-align: top;\n  }\n  \n  .prize-table .toggle-prize-table {\n    left: 1rem;\n    transform: none;\n  }\n\n  .footer {\n    justify-content: space-between;\n  }\n\n  .footer .toggle-info {\n    display: inline-block;\n    vertical-align: top;\n  }\n}\n\n@media screen and (max-width: 768px) {\n\n  h2 {\n    font-size: 2.5rem;\n  }\n\n  .header h1 {\n    font-size: 4rem;\n  }\n\n  .game {\n    width: 50rem;\n  }\n\n  .reels-wrapper {\n    height: 4.6rem;\n  }\n\n  .prize-table table {\n    min-width: 35rem;\n    min-height: 25rem;\n  }\n}\n\n@media screen and (max-width: 576px) {\n\n  body {\n    font-size: 1.4rem;\n  }\n\n  h2 {\n    font-size: 2rem;\n  }\n\n  .header {\n    display: block;\n  }\n\n  .header h1 {\n    font-size: 3.5rem;\n    text-align: center;\n  }\n\n  .header .toggle-info {\n    display: none;\n  }\n\n  .game {\n    width: 30rem;\n  }\n\n  .reels-wrapper {\n    height: 2.3rem;\n  }\n\n  .reel {\n    font-size: 2rem;\n  }\n\n  .info h2 {\n    margin-top: 1rem;\n    margin-bottom: 0.5rem;\n  }\n\n  .prize-table table {\n    min-width: 30rem;\n  }\n\n  .prize-table caption {\n    margin-bottom: 1rem;\n  }\n}", ""]);
 
 // exports
 
@@ -2138,13 +2138,14 @@ if(false) {}
 /*!************************!*\
   !*** ./src/helpers.js ***!
   \************************/
-/*! exports provided: generateRandomNumber, wait, animateNumbers */
+/*! exports provided: generateRandomNumber, wait, addEventListener, animateNumbers */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "generateRandomNumber", function() { return generateRandomNumber; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "wait", function() { return wait; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addEventListener", function() { return addEventListener; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "animateNumbers", function() { return animateNumbers; });
 const generateRandomNumber = (min = 0, max = 9) => {
   return Math.floor(Math.random() * (Math.floor(max) - Math.ceil(min))) + Math.ceil(min);
@@ -2152,6 +2153,22 @@ const generateRandomNumber = (min = 0, max = 9) => {
 
 const wait = (ms) => {
   return new Promise((resolve) => setTimeout(resolve, ms));
+};
+
+const addEventListener = (target, event, callback) => {
+  if (typeof target === 'string') {
+    target = document.querySelectorAll(target);
+
+    target.forEach((target) => {
+      return target.addEventListener(event, callback);
+    });
+  } else if (Array.isArray(target)) {
+    target.forEach((target) => {
+      return target.addEventListener(event, callback);
+    });
+  } else {
+    target.addEventListener(event, callback);
+  }
 };
 
 const animateNumbers = (options) => {
@@ -2164,7 +2181,7 @@ const animateNumbers = (options) => {
 
   if (typeof target === 'string') {
     const targetElement = document.querySelector(target);
-    
+
 
     for (let currentValue = 0; currentValue < endValue; currentValue++) {
       targetElement.innerHTML = currentValue;
@@ -2532,7 +2549,7 @@ const FruitMachine = function () {
 
       updateUI();
 
-      target.addEventListener('click', handleSpinButtonClick);
+      Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["addEventListener"])(target, 'click', handleSpinButtonClick);
 
       return false;
     }
@@ -2596,7 +2613,7 @@ const FruitMachine = function () {
 
     updateUI();
 
-    target.addEventListener('click', handleSpinButtonClick);
+    Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["addEventListener"])(target, 'click', handleSpinButtonClick);
   };
 
   const handleGetCreditClick = (e) => {
@@ -2614,42 +2631,24 @@ const FruitMachine = function () {
   const handleTogglePrizeTableClick = (e) => {
     e.preventDefault();
 
-    const togglePrizeTableButton = e.currentTarget;
-
     const prizeTable = document.querySelector('.prize-table');
-
 
     if (prizeTable.classList.contains('hidden')) {
       prizeTable.classList.remove('hidden');
-
-      togglePrizeTableButton.classList.add('toggled');
-      togglePrizeTableButton.innerHTML = 'Hide prize table';
     } else {
       prizeTable.classList.add('hidden');
-
-      togglePrizeTableButton.classList.remove('toggled');
-      togglePrizeTableButton.innerHTML = 'Show prize table';
     }
   };
 
   const handleToggleInfoClick = (e) => {
     e.preventDefault();
 
-    const toggleInfoButton = e.currentTarget;
-
     const info = document.querySelector('.info');
-
 
     if (info.classList.contains('hidden')) {
       info.classList.remove('hidden');
-
-      toggleInfoButton.classList.add('toggled');
-      toggleInfoButton.innerHTML = 'Hide info';
     } else {
       info.classList.add('hidden');
-
-      toggleInfoButton.classList.remove('toggled');
-      toggleInfoButton.innerHTML = 'Show info';
     }
   };
 
@@ -2681,31 +2680,15 @@ const FruitMachine = function () {
   this.start = () => {
     this.spin();
 
-
-    const fruitMachine = document.querySelector('.fruit-machine');
-
-    const spinButton = fruitMachine.querySelector('.spin-button');
-    spinButton.addEventListener('click', handleSpinButtonClick);
-
-    const getCredit = fruitMachine.querySelector('.get-credit');
-    getCredit.addEventListener('click', handleGetCreditClick);
-
-    const repayCredit = fruitMachine.querySelector('.repay-credit');
-    repayCredit.addEventListener('click', handleRepayCreditClick);
-
-    const togglePrizeTable = fruitMachine.querySelector('.toggle-prize-table');
-    togglePrizeTable.addEventListener('click', handleTogglePrizeTableClick);
-
-    const toggleInfo = fruitMachine.querySelectorAll('.toggle-info');
-    toggleInfo.forEach((target) => {
-      target.addEventListener('click', handleToggleInfoClick);
-    });
+    Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["addEventListener"])('.spin-button', 'click', handleSpinButtonClick);
+    Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["addEventListener"])('.get-credit', 'click', handleGetCreditClick);
+    Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["addEventListener"])('.repay-credit', 'click', handleRepayCreditClick);
+    Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["addEventListener"])('.toggle-prize-table', 'click', handleTogglePrizeTableClick);
+    Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["addEventListener"])('.toggle-info', 'click', handleToggleInfoClick);
 
     generateReels();
 
-
     generatePrizeTable();
-
 
     updateUI();
   };
