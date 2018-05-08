@@ -20,8 +20,14 @@
     <div class="reels-wrapper"></div>
 
     <div class="spin">
-      <p class="spin-cost"></p>
-      <button class="btn spin-button">Spin</button>
+      <div class="left">
+        <p class="spin-cost init-count-up"></p>
+        <p class="money init-count-up"></p>
+      </div>
+
+      <div class="right">
+        <button class="btn spin-button">Spin</button>
+      </div>
     </div>
 
     <div class="message-wrapper">
@@ -33,21 +39,23 @@
   <div class="info hidden">
     <div class="inner">
       <h2>Score</h2>
-      <p class="current-score"></p>
-      <p class="previous-score"></p>
-      <p class="total-score"></p>
-      <p class="best-score"></p>
+      <p class="current-score init-count-up"></p>
+      <p class="previous-score init-count-up"></p>
+      <p class="total-score init-count-up"></p>
+      <p class="best-score init-count-up"></p>
 
       <h2>Money</h2>
-      <p class="money"></p>
+      <p class="money init-count-up"></p>
 
       <h2>Credit</h2>
-      <p class="credit"></p>
+      <p class="credit init-count-up"></p>
       <button class="btn repay-credit" style="display: none;">Repay credit</button>
 
       <h2>Other</h2>
-      <p class="spin-amount"></p>
+      <p class="spin-amount init-count-up"></p>
     </div>
+
+    <button class="btn toggle-info">Close info</button>
   </div>
 
   <div class="prize-table hidden">
@@ -64,10 +72,14 @@
       </tr>
       </thead>
     </table>
+
+    <button class="btn toggle-prize-table">Close prize table</button>
   </div>
 
   <footer class="footer">
     <button class="btn toggle-prize-table">Show prize table</button>
+    <button class="btn repay-credit" style="display: none;">Repay credit</button>
+    <button class="btn toggle-info">Show info</button>
   </footer>
 </main>
 </body>

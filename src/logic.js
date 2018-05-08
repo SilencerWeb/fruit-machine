@@ -4,6 +4,7 @@ import lodashShuffle from 'lodash.shuffle';
 import {
   generateRandomNumber,
   wait,
+  addEventListener,
 } from './helpers';
 
 
@@ -110,10 +111,10 @@ export const FruitMachine = function () {
     const totalScore = fruitMachine.querySelector('.total-score');
     const bestScore = fruitMachine.querySelector('.best-score');
 
-    const money = fruitMachine.querySelector('.money');
+    const money = fruitMachine.querySelectorAll('.money');
 
     const credit = fruitMachine.querySelector('.credit');
-    const repayCredit = fruitMachine.querySelector('.repay-credit');
+    const repayCredit = fruitMachine.querySelectorAll('.repay-credit');
 
     const spinCount = fruitMachine.querySelector('.spin-amount');
 
@@ -128,10 +129,14 @@ export const FruitMachine = function () {
     totalScore.innerHTML = `Your total score: <span>${state.score.total}</span>`;
     bestScore.innerHTML = `Your best score: <span>${state.score.best}</span>`;
 
-    money.innerHTML = `Your money: <span>${state.money}$</span>`;
+    money.forEach((money) => {
+      money.innerHTML = `Your money: <span>${state.money}$</span>`;
+    });
 
     credit.innerHTML = `Your credit: <span>${state.credit}$</span>`;
-    repayCredit.style.display = state.credit === 0 ? 'none' : 'block';
+    repayCredit.forEach((repayCredit) => {
+      return repayCredit.style.display = state.credit === 0 ? 'none' : 'block';
+    });
 
     spinCount.innerHTML = `Your spin count: <span>${state.spin.count}</span>`;
   };
@@ -149,7 +154,7 @@ export const FruitMachine = function () {
       const getCredit = document.querySelector('.get-credit');
 
       const money = state.money + +creditAmount;
-      const message = `You successfully got credit for <span class="green">${creditAmount}$</span> :) 
+      const message = `You successfully got credit for <span>${creditAmount}$</span> :) 
                       <br>
                       <br> 
                       Please, don't forget to repay it, otherwise you can't get another one`;
@@ -289,45 +294,6 @@ export const FruitMachine = function () {
     });
   };
 
-  const togglePrizeTable = () => {
-    const prizeTable = document.querySelector('.prize-table');
-
-    const togglePrizeTableButton = document.querySelector('.toggle-prize-table');
-
-
-    if (prizeTable.classList.contains('hidden')) {
-      prizeTable.classList.remove('hidden');
-
-      togglePrizeTableButton.classList.add('toggled');
-      togglePrizeTableButton.innerHTML = 'Hide prize table';
-    } else {
-      prizeTable.classList.add('hidden');
-
-      togglePrizeTableButton.classList.remove('toggled');
-      togglePrizeTableButton.innerHTML = 'Show prize table';
-    }
-  };
-
-
-  const toggleInfo = () => {
-    const info = document.querySelector('.info');
-
-    const toggleInfoButton = document.querySelector('.toggle-info');
-
-
-    if (info.classList.contains('hidden')) {
-      info.classList.remove('hidden');
-
-      toggleInfoButton.classList.add('toggled');
-      toggleInfoButton.innerHTML = 'Hide info';
-    } else {
-      info.classList.add('hidden');
-
-      toggleInfoButton.classList.remove('toggled');
-      toggleInfoButton.innerHTML = 'Show info';
-    }
-  };
-
 
   const handleSpinButtonClick = async(e) => {
     e.preventDefault();
@@ -356,7 +322,7 @@ export const FruitMachine = function () {
 
       updateUI();
 
-      target.addEventListener('click', handleSpinButtonClick);
+      addEventListener(target, 'click', handleSpinButtonClick);
 
       return false;
     }
@@ -391,10 +357,10 @@ export const FruitMachine = function () {
       message = score > 500 ?
         `Woooooow! Congratulations!
         <br>
-        You won a lot - <span class="green">${score}$</span>!` :
+        You won a lot - <span>${score}$</span>!` :
         `Woohoo! Congratulations!
         <br>
-        You won <span class="green">${score}$</span> :)`;
+        You won <span>${score}$</span> :)`;
     } else {
       message = `Damn, You lost :( <br> Try again, I believe You will win next time :)`;
     }
@@ -420,7 +386,7 @@ export const FruitMachine = function () {
 
     updateUI();
 
-    target.addEventListener('click', handleSpinButtonClick);
+    addEventListener(target, 'click', handleSpinButtonClick);
   };
 
   const handleGetCreditClick = (e) => {
@@ -438,13 +404,25 @@ export const FruitMachine = function () {
   const handleTogglePrizeTableClick = (e) => {
     e.preventDefault();
 
-    togglePrizeTable();
+    const prizeTable = document.querySelector('.prize-table');
+
+    if (prizeTable.classList.contains('hidden')) {
+      prizeTable.classList.remove('hidden');
+    } else {
+      prizeTable.classList.add('hidden');
+    }
   };
 
   const handleToggleInfoClick = (e) => {
     e.preventDefault();
 
-    toggleInfo();
+    const info = document.querySelector('.info');
+
+    if (info.classList.contains('hidden')) {
+      info.classList.remove('hidden');
+    } else {
+      info.classList.add('hidden');
+    }
   };
 
 
@@ -475,30 +453,15 @@ export const FruitMachine = function () {
   this.start = () => {
     this.spin();
 
-
-    const fruitMachine = document.querySelector('.fruit-machine');
-
-    const spinButton = fruitMachine.querySelector('.spin-button');
-    spinButton.addEventListener('click', handleSpinButtonClick);
-
-    const getCredit = fruitMachine.querySelector('.get-credit');
-    getCredit.addEventListener('click', handleGetCreditClick);
-
-    const repayCredit = fruitMachine.querySelector('.repay-credit');
-    repayCredit.addEventListener('click', handleRepayCreditClick);
-
-    const togglePrizeTable = fruitMachine.querySelector('.toggle-prize-table');
-    togglePrizeTable.addEventListener('click', handleTogglePrizeTableClick);
-
-    const toggleInfo = fruitMachine.querySelector('.toggle-info');
-    toggleInfo.addEventListener('click', handleToggleInfoClick);
-
+    addEventListener('.spin-button', 'click', handleSpinButtonClick);
+    addEventListener('.get-credit', 'click', handleGetCreditClick);
+    addEventListener('.repay-credit', 'click', handleRepayCreditClick);
+    addEventListener('.toggle-prize-table', 'click', handleTogglePrizeTableClick);
+    addEventListener('.toggle-info', 'click', handleToggleInfoClick);
 
     generateReels();
 
-
     generatePrizeTable();
-
 
     updateUI();
   };

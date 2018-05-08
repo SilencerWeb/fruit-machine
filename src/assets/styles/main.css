@@ -1,5 +1,8 @@
 :root {
-  --main-color: #323232
+  --main-color: #ffffff;
+  --second-color: #323232;
+
+  --background: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
 }
 
 *,
@@ -19,6 +22,10 @@ body {
   color: var(--main-color);
 }
 
+h1, h2, h3, h4, h5, h6 {
+  color: var(--second-color);
+}
+
 h2 {
   font-size: 3rem;
   font-weight: 600;
@@ -35,10 +42,7 @@ p:last-child {
 
 p span {
   font-weight: 500;
-}
-
-p span.green {
-  color: forestgreen;
+  color: var(--second-color);
 }
 
 .btn {
@@ -46,7 +50,7 @@ p span.green {
   vertical-align: top;
   color: var(--main-color);
   background-color: transparent;
-  border: 0.1rem solid #c8c8c8;
+  border: 0.1rem solid var(--main-color);
   border-radius: 0.5rem;
   padding: 0.5rem 1rem;
   outline: none;
@@ -55,8 +59,8 @@ p span.green {
 }
 
 .btn:hover {
-  color: red;
-  border-color: red;
+  color: var(--second-color);
+  border-color: var(--second-color);
 }
 
 .fruit-machine {
@@ -65,6 +69,7 @@ p span.green {
   flex-direction: column;
   justify-content: space-between;
   min-height: 100vh;
+  background: var(--background);
 }
 
 .header {
@@ -85,12 +90,15 @@ p span.green {
   margin-bottom: 0;
 }
 
+.header .toggle-info {
+  display: none;
+}
+
 .game {
   position: absolute;
   top: 50%;
   left: 50%;
-  max-width: 60rem;
-  width: 100%;
+  width: 60rem;
   transform: translate(-50%, -50%);
 }
 
@@ -130,10 +138,6 @@ p span.green {
   margin-bottom: 2rem;
 }
 
-.spin-cost {
-  margin-bottom: 0;
-}
-
 .message-wrapper {
   position: absolute;
   bottom: 0;
@@ -158,10 +162,9 @@ p span.green {
   top: 0;
   right: 0;
   z-index: 1;
-  width: 21rem;
+  width: 22rem;
   height: 100%;
   min-height: 100vh;
-  background-color: #ffffff;
   padding: 2rem 1rem;
   transition: 0.3s;
 }
@@ -187,13 +190,13 @@ p span.green {
   margin-bottom: 0;
 }
 
-.toggle-info {
+.info .toggle-info {
   display: none;
 }
 
 .prize-table {
   position: absolute;
-  bottom: 0;
+  top: 0;
   left: 0;
   z-index: 1;
   display: flex;
@@ -201,11 +204,11 @@ p span.green {
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 100%;
   min-height: 100vh;
   text-align: center;
-  background-color: #ffffff;
-  padding: 1.5rem 1.25rem;
+  background: var(--background);
+  padding-top: 11rem;
+  padding-bottom: 11rem;
   transition: 0.3s;
 }
 
@@ -228,8 +231,19 @@ p span.green {
   margin-bottom: 0;
 }
 
+.prize-table th {
+  color: var(--second-color);
+}
+
 .prize-table td::first-letter {
   text-transform: uppercase;
+}
+
+.prize-table .toggle-prize-table {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .footer {
@@ -239,33 +253,52 @@ p span.green {
   padding: 1.5rem 1rem;
 }
 
+.footer .btn {
+  margin-right: 2rem;
+}
+
+.footer .btn:last-child {
+  margin-right: 0;
+}
+
+.footer .toggle-info {
+  display: none;
+}
+
 .toggle-prize-table {
   position: relative;
 }
 
-.toggle-prize-table.toggled {
-  z-index: 9;
+@media screen and (max-width: 1200px) {
+
+  .game {
+    width: 55rem;
+  }
 }
 
-
 @media screen and (max-width: 992px) {
-  
-  .header h1 {
-    font-size: 5rem;
+
+  .header {
+    display: block;
   }
-  
+
+  .header h1 {
+    font-size: 6rem;
+    text-align: center;
+  }
+
   .info {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1;
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 100%;
+    height: auto;
     min-height: 100vh;
-    padding-top: 7rem;
+    background: var(--background);
+    padding-top: 10rem;
+    padding-right: 0;
+    padding-bottom: 10rem;
+    padding-left: 0;
   }
 
   .info.hidden {
@@ -273,63 +306,156 @@ p span.green {
     visibility: hidden;
   }
 
-  .toggle-info {
-    position: relative;
+  .info .toggle-info {
+    position: absolute;
+    right: 1rem;
+    bottom: 1.5rem;
     display: inline-block;
     vertical-align: top;
   }
 
-  .toggle-info.toggled {
-    z-index: 9;
+  .prize-table {
+    padding-top: 10rem;
+    padding-bottom: 10rem;
+  }
+
+  .prize-table .toggle-prize-table {
+    left: 1rem;
+    transform: none;
+  }
+
+  .footer {
+    justify-content: space-between;
+  }
+
+  .footer .toggle-info {
+    display: inline-block;
+    vertical-align: top;
   }
 }
-
 
 @media screen and (max-width: 768px) {
-  
-  html {
-    font-size: 40%;
-  }
-  
-  .game {
-    max-width: 50rem;
-  }
-  
-  .reels-wrapper {
-    height: 2.9rem;
-  }
-  
-  .prize-table table {
-    min-width: 35rem;
-    min-height: 25rem;
-  }
-}
 
-
-@media screen and (max-width: 576px) {
-  
   h2 {
     font-size: 2.5rem;
   }
-  
- .header h1 {
-   font-size: 3.5rem;
- }
- 
- .game {
-   max-width: 32rem;
- }
- 
- .reels-wrapper {
-   height: 2.9rem;
- }
- 
- .reel {
-   font-size: 3.5rem;
- }
- 
+
+  .game {
+    width: 50rem;
+  }
+
+  .reels-wrapper {
+    height: 4.6rem;
+  }
+
+  .prize-table table {
+    min-width: 40rem;
+    min-height: 30rem;
+  }
+}
+
+@media screen and (max-width: 576px) {
+
+  .header h1 {
+    font-size: 5rem;
+  }
+
+  .header .toggle-info {
+    display: none;
+  }
+
+  .game {
+    width: 44rem;
+  }
+
+  .reels-wrapper {
+    height: 4rem;
+  }
+
+  .reel {
+    font-size: 3.5rem;
+  }
+
+  .info {
+    padding-top: 8rem;
+    padding-bottom: 8rem;
+  }
+
   .info h2 {
     margin-top: 1rem;
     margin-bottom: 0.5rem;
+  }
+
+  .prize-table {
+    padding-top: 8rem;
+    padding-bottom: 8rem;
+  }
+
+  .prize-table caption {
+    margin-bottom: 1rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+
+  body {
+    font-size: 1.4rem;
+  }
+
+  h2 {
+    font-size: 2rem;
+  }
+
+  .header h1 {
+    font-size: 3.5rem;
+  }
+
+  .game {
+    width: 30rem;
+  }
+
+  .reels-wrapper {
+    height: 2.3rem;
+  }
+
+  .reel {
+    font-size: 2rem;
+  }
+
+  .info {
+    padding-top: 6.5rem;
+    padding-bottom: 6.5rem;
+  }
+
+  .info .toggle-info {
+    width: calc(100% - 2rem);
+  }
+
+  .prize-table {
+    padding-top: 6.5rem;
+    padding-bottom: 6.5rem;
+  }
+
+  .prize-table table {
+    min-width: 30rem;
+    min-height: 25rem;
+  }
+
+  .prize-table .toggle-prize-table {
+    width: calc(100% - 2rem);
+  }
+
+  .footer {
+    display: block;
+  }
+
+  .footer .btn {
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 1rem;
+  }
+
+  .footer .btn:last-child {
+    margin-bottom: 0;
   }
 }
