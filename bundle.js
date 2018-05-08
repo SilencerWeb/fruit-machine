@@ -2242,7 +2242,7 @@ const FruitMachine = function () {
   const CREDIT_MIN_AMOUNT = 300;
   const CREDIT_MAX_AMOUNT = 1000;
 
-  const REELS_SPINNING_ANIMATION_TIME = 2000;
+  const REELS_SPINNING_ANIMATION_TIME = 3000;
 
 
   this.state = {
@@ -2480,7 +2480,7 @@ const FruitMachine = function () {
 
       reelDOM.style.cssText =
         `top: 0; 
-         transition: ${reelSpinningAnimationTime}ms cubic-bezier(0.4, 0, 0.2, 1);`;
+         transition: ${reelSpinningAnimationTime}ms cubic-bezier(0, 0, 0.5, 1);`;
 
       setTimeout(() => reelDOM.style.cssText = '', reelSpinningAnimationTime); // Clear animation styles
     });
@@ -2602,7 +2602,7 @@ const FruitMachine = function () {
     generateReels();
 
     animateReels();
-    await Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["wait"])(REELS_SPINNING_ANIMATION_TIME);
+    await Object(_helpers__WEBPACK_IMPORTED_MODULE_2__["wait"])(REELS_SPINNING_ANIMATION_TIME * REELS_AMOUNT);
 
     updateUI();
 
