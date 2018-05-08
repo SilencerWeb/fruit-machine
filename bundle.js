@@ -102,7 +102,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ":root {\n  --main-color: #ffffff;\n  --second-color: #323232;\n\n  --background: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);\n}\n\n*,\n*:before,\n*:after {\n  box-sizing: border-box;\n}\n\nhtml {\n  font-size: 62.5%;\n}\n\nbody {\n  position: relative;\n  font-family: 'Montserrat', sans-serif;\n  font-size: 1.6rem;\n  color: var(--main-color);\n}\n\nh1, h2, h3, h4, h5, h6 {\n  color: var(--second-color);\n}\n\nh2 {\n  font-size: 3rem;\n  font-weight: 600;\n}\n\np {\n  margin-top: 0;\n  margin-bottom: 0.5rem;\n}\n\np:last-child {\n  margin-bottom: 0;\n}\n\np span {\n  font-weight: 500;\n  color: var(--second-color);\n}\n\n.btn {\n  display: inline-block;\n  vertical-align: top;\n  color: var(--main-color);\n  background-color: transparent;\n  border: 0.1rem solid #ffffff;\n  border-radius: 0.5rem;\n  padding: 0.5rem 1rem;\n  outline: none;\n  cursor: pointer;\n  transition: 0.3s;\n}\n\n.btn:hover {\n  color: #323232;\n  border-color: #323232;\n}\n\n.fruit-machine {\n  position: relative;\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  min-height: 100vh;\n  background: var(--background);\n}\n\n.header {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  padding: 1.5rem 1rem;\n}\n\n.header h1 {\n  position: relative;\n  z-index: 9;\n  font-size: 7rem;\n  font-weight: 600;\n  line-height: 1;\n  text-transform: uppercase;\n  margin-top: 0;\n  margin-bottom: 0;\n}\n\n.header .toggle-info {\n  display: none;\n}\n\n.game {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  width: 60rem;\n  transform: translate(-50%, -50%);\n}\n\n.reels-wrapper {\n  position: relative;\n  width: 100%;\n  height: 4.6rem;\n  margin-bottom: 2rem;\n  overflow: hidden;\n}\n\n.reel {\n  position: absolute;\n  top: 0;\n  width: 33.333%;\n  font-size: 4rem;\n  text-align: center;\n  text-transform: uppercase;\n}\n\n.reel:first-child {\n  left: 0;\n}\n\n.reel:nth-of-type(2) {\n  left: 33.333%;\n}\n\n.reel:last-child {\n  right: 0;\n}\n\n.spin {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  margin-bottom: 2rem;\n}\n\n.message-wrapper {\n  position: absolute;\n  bottom: 0;\n  left: 0;\n  width: 100%;\n  text-align: center;\n  margin-top: 0;\n  margin-bottom: 0;\n  transform: translateY(100%);\n}\n\n.message {\n  margin-bottom: 2rem;\n}\n\n.message:last-child {\n  margin-bottom: 0;\n}\n\n.info {\n  position: absolute;\n  top: 0;\n  right: 0;\n  z-index: 1;\n  width: 22rem;\n  height: 100%;\n  min-height: 100vh;\n  padding: 2rem 1rem;\n  transition: 0.3s;\n}\n\n.info h2 {\n  margin-top: 2rem;\n  margin-bottom: 1rem;\n}\n\n.info h2:first-child {\n  margin-top: 0;\n}\n\n.info h2:last-child {\n  margin-bottom: 0;\n}\n\n.info p {\n  margin-bottom: 0.5rem;\n}\n\n.info p:last-child {\n  margin-bottom: 0;\n}\n\n.info .toggle-info {\n  display: none;\n}\n\n.prize-table {\n  position: absolute;\n  top: 0;\n  left: 0;\n  z-index: 1;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n  width: 100%;\n  min-height: 100vh;\n  text-align: center;\n  background: var(--background);\n  padding-top: 11rem;\n  padding-bottom: 11rem;\n  transition: 0.3s;\n}\n\n.prize-table.hidden {\n  visibility: hidden;\n  opacity: 0;\n}\n\n.prize-table table {\n  min-width: 50rem;\n  min-height: 40rem;\n}\n\n.prize-table caption {\n  margin-bottom: 2rem;\n}\n\n.prize-table caption h2 {\n  margin-top: 0;\n  margin-bottom: 0;\n}\n\n.prize-table th {\n  color: var(--second-color);\n}\n\n.prize-table td::first-letter {\n  text-transform: uppercase;\n}\n\n.prize-table .toggle-prize-table {\n  position: absolute;\n  bottom: 1.5rem;\n  left: 50%;\n  transform: translateX(-50%);\n}\n\n.footer {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  padding: 1.5rem 1rem;\n}\n\n.footer .btn {\n  margin-right: 2rem;\n}\n\n.footer .btn:last-child {\n  margin-right: 0;\n}\n\n.footer .toggle-info {\n  display: none;\n}\n\n.toggle-prize-table {\n  position: relative;\n}\n\n@media screen and (max-width: 1200px) {\n\n  .game {\n    width: 55rem;\n  }\n}\n\n@media screen and (max-width: 992px) {\n\n  .header {\n    display: block;\n  }\n\n  .header h1 {\n    font-size: 6rem;\n    text-align: center;\n  }\n\n  .info {\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    width: 100%;\n    height: auto;\n    min-height: 100vh;\n    background: var(--background);\n    padding-top: 10rem;\n    padding-right: 0;\n    padding-bottom: 10rem;\n    padding-left: 0;\n  }\n\n  .info.hidden {\n    opacity: 0;\n    visibility: hidden;\n  }\n\n  .info .toggle-info {\n    position: absolute;\n    right: 1rem;\n    bottom: 1.5rem;\n    display: inline-block;\n    vertical-align: top;\n  }\n\n  .prize-table {\n    padding-top: 10rem;\n    padding-bottom: 10rem;\n  }\n\n  .prize-table .toggle-prize-table {\n    left: 1rem;\n    transform: none;\n  }\n\n  .footer {\n    justify-content: space-between;\n  }\n\n  .footer .toggle-info {\n    display: inline-block;\n    vertical-align: top;\n  }\n}\n\n@media screen and (max-width: 768px) {\n\n  h2 {\n    font-size: 2.5rem;\n  }\n\n  .game {\n    width: 50rem;\n  }\n\n  .reels-wrapper {\n    height: 4.6rem;\n  }\n\n  .prize-table table {\n    min-width: 40rem;\n    min-height: 30rem;\n  }\n}\n\n@media screen and (max-width: 576px) {\n\n  .header h1 {\n    font-size: 5rem;\n  }\n\n  .header .toggle-info {\n    display: none;\n  }\n\n  .game {\n    width: 44rem;\n  }\n\n  .reels-wrapper {\n    height: 4rem;\n  }\n\n  .reel {\n    font-size: 3.5rem;\n  }\n\n  .info {\n    padding-top: 8rem;\n    padding-bottom: 8rem;\n  }\n\n  .info h2 {\n    margin-top: 1rem;\n    margin-bottom: 0.5rem;\n  }\n\n  .prize-table {\n    padding-top: 8rem;\n    padding-bottom: 8rem;\n  }\n\n  .prize-table caption {\n    margin-bottom: 1rem;\n  }\n}\n\n@media screen and (max-width: 480px) {\n\n  body {\n    font-size: 1.4rem;\n  }\n\n  h2 {\n    font-size: 2rem;\n  }\n\n  .header h1 {\n    font-size: 3.5rem;\n  }\n\n  .game {\n    width: 30rem;\n  }\n\n  .reels-wrapper {\n    height: 2.3rem;\n  }\n\n  .reel {\n    font-size: 2rem;\n  }\n\n  .info {\n    padding-top: 6.5rem;\n    padding-bottom: 6.5rem;\n  }\n\n  .info .toggle-info {\n    width: calc(100% - 2rem);\n  }\n\n  .prize-table {\n    padding-top: 6.5rem;\n    padding-bottom: 6.5rem;\n  }\n\n  .prize-table table {\n    min-width: 30rem;\n    min-height: 25rem;\n  }\n\n  .prize-table .toggle-prize-table {\n    width: calc(100% - 2rem);\n  }\n\n  .footer {\n    display: block;\n  }\n\n  .footer .btn {\n    width: 100%;\n    margin-right: 0;\n    margin-bottom: 1rem;\n  }\n\n  .footer .btn:last-child {\n    margin-bottom: 0;\n  }\n}", ""]);
+exports.push([module.i, ":root {\n  --main-color: #ffffff;\n  --second-color: #323232;\n\n  --background: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);\n}\n\n*,\n*:before,\n*:after {\n  box-sizing: border-box;\n}\n\nhtml {\n  font-size: 62.5%;\n}\n\nbody {\n  position: relative;\n  font-family: 'Montserrat', sans-serif;\n  font-size: 1.6rem;\n  color: var(--main-color);\n}\n\nh1, h2, h3, h4, h5, h6 {\n  color: var(--second-color);\n}\n\nh2 {\n  font-size: 3rem;\n  font-weight: 600;\n}\n\np {\n  margin-top: 0;\n  margin-bottom: 0.5rem;\n}\n\np:last-child {\n  margin-bottom: 0;\n}\n\np span {\n  font-weight: 500;\n  color: var(--second-color);\n}\n\n.btn {\n  display: inline-block;\n  vertical-align: top;\n  color: var(--main-color);\n  background-color: transparent;\n  border: 0.1rem solid var(--main-color);\n  border-radius: 0.5rem;\n  padding: 0.5rem 1rem;\n  outline: none;\n  cursor: pointer;\n  transition: 0.3s;\n}\n\n.btn:hover {\n  color: var(--second-color);\n  border-color: var(--second-color);\n}\n\n.fruit-machine {\n  position: relative;\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  min-height: 100vh;\n  background: var(--background);\n}\n\n.header {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  padding: 1.5rem 1rem;\n}\n\n.header h1 {\n  position: relative;\n  z-index: 9;\n  font-size: 7rem;\n  font-weight: 600;\n  line-height: 1;\n  text-transform: uppercase;\n  margin-top: 0;\n  margin-bottom: 0;\n}\n\n.header .toggle-info {\n  display: none;\n}\n\n.game {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  width: 60rem;\n  transform: translate(-50%, -50%);\n}\n\n.reels-wrapper {\n  position: relative;\n  width: 100%;\n  height: 4.6rem;\n  margin-bottom: 2rem;\n  overflow: hidden;\n}\n\n.reel {\n  position: absolute;\n  width: 33.333%;\n  font-size: 4rem;\n  text-align: center;\n  text-transform: uppercase;\n}\n\n.reel:first-child {\n  top: var(--reel-1-top);\n  left: 0;\n}\n\n.reel:nth-of-type(2) {\n  top: var(--reel-2-top);\n  left: 33.333%;\n}\n\n.reel:last-child {\n  top: var(--reel-3-top);\n  right: 0;\n}\n\n.spin {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  margin-bottom: 2rem;\n}\n\n.message-wrapper {\n  position: absolute;\n  bottom: 0;\n  left: 0;\n  width: 100%;\n  text-align: center;\n  margin-top: 0;\n  margin-bottom: 0;\n  transform: translateY(100%);\n}\n\n.message {\n  margin-bottom: 2rem;\n}\n\n.message:last-child {\n  margin-bottom: 0;\n}\n\n.info {\n  position: absolute;\n  top: 0;\n  right: 0;\n  z-index: 1;\n  width: 22rem;\n  height: 100%;\n  min-height: 100vh;\n  padding: 2rem 1rem;\n  transition: 0.3s;\n}\n\n.info h2 {\n  margin-top: 2rem;\n  margin-bottom: 1rem;\n}\n\n.info h2:first-child {\n  margin-top: 0;\n}\n\n.info h2:last-child {\n  margin-bottom: 0;\n}\n\n.info p {\n  margin-bottom: 0.5rem;\n}\n\n.info p:last-child {\n  margin-bottom: 0;\n}\n\n.info .toggle-info {\n  display: none;\n}\n\n.prize-table {\n  position: absolute;\n  top: 0;\n  left: 0;\n  z-index: 1;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n  width: 100%;\n  min-height: 100vh;\n  text-align: center;\n  background: var(--background);\n  padding-top: 11rem;\n  padding-bottom: 11rem;\n  transition: 0.3s;\n}\n\n.prize-table.hidden {\n  visibility: hidden;\n  opacity: 0;\n}\n\n.prize-table table {\n  min-width: 50rem;\n  min-height: 40rem;\n}\n\n.prize-table caption {\n  margin-bottom: 2rem;\n}\n\n.prize-table caption h2 {\n  margin-top: 0;\n  margin-bottom: 0;\n}\n\n.prize-table th {\n  color: var(--second-color);\n}\n\n.prize-table td::first-letter {\n  text-transform: uppercase;\n}\n\n.prize-table .toggle-prize-table {\n  position: absolute;\n  bottom: 1.5rem;\n  left: 50%;\n  transform: translateX(-50%);\n}\n\n.footer {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  padding: 1.5rem 1rem;\n}\n\n.footer .btn {\n  margin-right: 2rem;\n}\n\n.footer .btn:last-child {\n  margin-right: 0;\n}\n\n.footer .toggle-info {\n  display: none;\n}\n\n.toggle-prize-table {\n  position: relative;\n}\n\n@media screen and (max-width: 1200px) {\n\n  .game {\n    width: 55rem;\n  }\n}\n\n@media screen and (max-width: 992px) {\n\n  .header {\n    display: block;\n  }\n\n  .header h1 {\n    font-size: 6rem;\n    text-align: center;\n  }\n\n  .info {\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    width: 100%;\n    height: auto;\n    min-height: 100vh;\n    background: var(--background);\n    padding-top: 10rem;\n    padding-right: 0;\n    padding-bottom: 10rem;\n    padding-left: 0;\n  }\n\n  .info.hidden {\n    opacity: 0;\n    visibility: hidden;\n  }\n\n  .info .toggle-info {\n    position: absolute;\n    right: 1rem;\n    bottom: 1.5rem;\n    display: inline-block;\n    vertical-align: top;\n  }\n\n  .prize-table {\n    padding-top: 10rem;\n    padding-bottom: 10rem;\n  }\n\n  .prize-table .toggle-prize-table {\n    left: 1rem;\n    transform: none;\n  }\n\n  .footer {\n    justify-content: space-between;\n  }\n\n  .footer .toggle-info {\n    display: inline-block;\n    vertical-align: top;\n  }\n}\n\n@media screen and (max-width: 768px) {\n\n  h2 {\n    font-size: 2.5rem;\n  }\n\n  .game {\n    width: 50rem;\n  }\n\n  .reels-wrapper {\n    height: 4.6rem;\n  }\n\n  .prize-table table {\n    min-width: 40rem;\n    min-height: 30rem;\n  }\n}\n\n@media screen and (max-width: 576px) {\n\n  .header h1 {\n    font-size: 5rem;\n  }\n\n  .header .toggle-info {\n    display: none;\n  }\n\n  .game {\n    width: 44rem;\n  }\n\n  .reels-wrapper {\n    height: 4rem;\n  }\n\n  .reel {\n    font-size: 3.5rem;\n  }\n\n  .info {\n    padding-top: 8rem;\n    padding-bottom: 8rem;\n  }\n\n  .info h2 {\n    margin-top: 1rem;\n    margin-bottom: 0.5rem;\n  }\n\n  .prize-table {\n    padding-top: 8rem;\n    padding-bottom: 8rem;\n  }\n\n  .prize-table caption {\n    margin-bottom: 1rem;\n  }\n}\n\n@media screen and (max-width: 480px) {\n\n  body {\n    font-size: 1.4rem;\n  }\n\n  h2 {\n    font-size: 2rem;\n  }\n\n  .header h1 {\n    font-size: 3.5rem;\n  }\n\n  .game {\n    width: 30rem;\n  }\n\n  .reels-wrapper {\n    height: 2.3rem;\n  }\n\n  .reel {\n    font-size: 2rem;\n  }\n\n  .info {\n    padding-top: 6.5rem;\n    padding-bottom: 6.5rem;\n  }\n\n  .info .toggle-info {\n    width: calc(100% - 2rem);\n  }\n\n  .prize-table {\n    padding-top: 6.5rem;\n    padding-bottom: 6.5rem;\n  }\n\n  .prize-table table {\n    min-width: 30rem;\n    min-height: 25rem;\n  }\n\n  .prize-table .toggle-prize-table {\n    width: calc(100% - 2rem);\n  }\n\n  .footer {\n    display: block;\n  }\n\n  .footer .btn {\n    width: 100%;\n    margin-right: 0;\n    margin-bottom: 1rem;\n  }\n\n  .footer .btn:last-child {\n    margin-bottom: 0;\n  }\n}", ""]);
 
 // exports
 
@@ -2242,7 +2242,7 @@ const FruitMachine = function () {
   const CREDIT_MIN_AMOUNT = 300;
   const CREDIT_MAX_AMOUNT = 1000;
 
-  const REELS_SPINNING_ANIMATION_TIME = 1500;
+  const REELS_SPINNING_ANIMATION_TIME = 2000;
 
 
   this.state = {
@@ -2426,10 +2426,10 @@ const FruitMachine = function () {
       reels.forEach((reel, i) => {
         const reelChildren = reel.children;
 
-        reelChildren.item(reelChildren.length - 1).innerHTML = spinReelNames[i];
+        reelChildren.item(0).innerHTML = spinReelNames[i];
 
         setTimeout(() => {
-          reelChildren.item(0).innerHTML = spinReelNames[i];
+          reelChildren.item(reelChildren.length - 1).innerHTML = spinReelNames[i];
         }, REELS_SPINNING_ANIMATION_TIME / 2); // We have to change first item's text after the start and before the end of animation
       });
     } else {
@@ -2437,7 +2437,12 @@ const FruitMachine = function () {
         const reel = document.createElement('div');
         reel.classList.add('reel');
 
+
         const shuffledReelItemNames = lodash_shuffle__WEBPACK_IMPORTED_MODULE_1___default()(REEL_NAMES);
+
+        for (let j = 0; i >= j; j++) {
+          shuffledReelItemNames.push(...shuffledReelItemNames);
+        }
 
 
         shuffledReelItemNames.forEach((reelItemName) => {
@@ -2453,6 +2458,16 @@ const FruitMachine = function () {
         });
 
         reelsWrapper.appendChild(reel);
+
+
+        const reelChildren = [...reel.children];
+
+        const reelHeight = reelChildren.reduce((height, reelChild, i) => {
+          return i === 0 ?
+            height : height + reelChild.offsetHeight; // We don't need height of the last child due how animation works
+        }, 0);
+
+        reelsWrapper.style.setProperty(`--reel-${i + 1}-top`, `-${reelHeight}px`);
       }
     }
   };
@@ -2460,20 +2475,14 @@ const FruitMachine = function () {
   const animateReels = () => {
     const reels = document.querySelectorAll('.reel');
 
-    const reelChildren = [...reels[0].children];
+    reels.forEach((reelDOM, i) => {
+      const reelSpinningAnimationTime = i === 0 ? REELS_SPINNING_ANIMATION_TIME : REELS_SPINNING_ANIMATION_TIME * ++i;
 
-    const reelHeight = reelChildren.reduce((height, reelChild, i) => {
-      return i < reelChildren.length - 1 ?
-        height + reelChild.offsetHeight : height; // We don't need height of the last child due how animation works
-    }, 0);
-
-
-    reels.forEach((reelDOM) => {
       reelDOM.style.cssText =
-        `top: -${reelHeight}px; 
-         transition: ${REELS_SPINNING_ANIMATION_TIME}ms;`;
+        `top: 0; 
+         transition: ${reelSpinningAnimationTime}ms cubic-bezier(1, 1, 0, 0);`;
 
-      setTimeout(() => reelDOM.style.cssText = '', REELS_SPINNING_ANIMATION_TIME); // Clear animation styles
+      setTimeout(() => reelDOM.style.cssText = '', reelSpinningAnimationTime); // Clear animation styles
     });
   };
 
